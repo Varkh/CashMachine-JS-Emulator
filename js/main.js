@@ -1,8 +1,13 @@
 "use strict";
 
 $(function () {
-    window.atm = new Core(
+    var core = new Core(
         new CashModule(),
         new CardModule()
     );
+
+    var view = new GeneralView(core);
+
+
+    window.atm = core;
 });
