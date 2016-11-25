@@ -53,14 +53,10 @@ CardDataModel.prototype.getBallance = function () {
 };
 
 CardDataModel.prototype.checkPin = function (inputPin) {
-    for (var i = 0; i < inputPin.length; i++){
-        var count = 0;
-        if (inputPin[i] === this._pin[i]){
-            count++;
-        }
+    for (var i = 0; i < inputPin.length; i++) {
+        if (inputPin[i] !== this._pin[i])return false;
     }
-    var pinIsGood = (count == this._pin.length);
-    return pinIsGood;
+        return true;
 };
 
 /*CardDataModel.prototype.isNotExpired = function () {
