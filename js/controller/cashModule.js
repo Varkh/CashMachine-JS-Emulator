@@ -6,5 +6,5 @@
  * @constructor
  */
 function CashModule() {
-    
+
 }
