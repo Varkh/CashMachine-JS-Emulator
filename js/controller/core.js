@@ -12,7 +12,15 @@ function Core(cashModule, cardModule) {
         console.log("Enter pin");
     };
 
-    this.enterPin = function (pin) {
+    this.enterPin = function (button) {
+
+        if (isNumeric(button.value)) {
+            var pin=toString(button)+button;
+        }
+
+        if (pin.length===4&&button.value==='Submit') {
+            //введен пин проверить
+        }
         console.log("Autorized.")
     };
 
