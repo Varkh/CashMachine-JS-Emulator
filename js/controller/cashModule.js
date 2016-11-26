@@ -13,6 +13,11 @@ function CashModule() {
             {nominal: 50, number: 2},{nominal: 20, number: 5},{nominal: 10, number: 5}];
         var nominals = [];
         while (amount != 0) {
+            if(amount > 4250){
+             console.log("Sorry but ATM have only 4250");
+                break;
+            }
+
             for (var i = 0; i < bills.length; i++) {
                 if(bills[i].nominal <= amount && bills[i].number != 0){
                     amount -= bills[i].nominal;
@@ -23,7 +28,7 @@ function CashModule() {
 
             }
         }
-        console.log(nominals);
+
         return nominals;
     }
 }
