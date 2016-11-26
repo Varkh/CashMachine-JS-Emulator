@@ -2,7 +2,7 @@
 
 function GeneralView(core) {
 	
-	var numbers = $(".numbers");
+	var numbers = $(".number");
 	
 	numbers.onclick(function(event) {
 		var pushedButton = event.target.value;
