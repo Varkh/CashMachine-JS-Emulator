@@ -9,14 +9,27 @@
  */
 function CardDataModel() {
     /**
+     * Pin Code
+     * should be changed to hash instead
+     * or used only for card creation
+     */
+    var pin = [1,1,1,1];
+
+    /**
+     * Amount of money on card
+     */
+    var balance = 100;
+
+    /**
      * Name of person who own card
      */
     this._holderName = 'Вася Пупкин';
 
     /**
-     * Amount of money on card
+     * ExpirationDate
+     * Not allowed to use card with expired date
      */
-    this._balance = 100;
+    this._expirationDate = [30,1,2018];
 
     /**
      * CardType: debit/credit
@@ -25,18 +38,41 @@ function CardDataModel() {
     this._cardType = CardDataModel.CARD_TYPE.DEBIT;
 
     /**
-     * Pin Code
-     * should be changed to hash instead
-     * or used only for card creation
+     * Metod: check pin
+     * this metod allow to check input pin and real pin of this card
+     * returns boolean
      */
-    this.defaultPin = [1,1,1,1];
+    this.checkPin = function (inputPin) {
+        for (var i = 0; i < inputPin.length; i++) {
+            if (inputPin[i] !== this.pin[i]) {
+                return false
+            }
+        }
+        return true;
+    };
 
     /**
-     * ExpirationDate
-     * Not allowed to use card with expired date
+     * Metod: sets new PIN
      */
-    this._expirationDate = [30,1,2018];
+    this.setPin = function (newPin) {
+        pin = newPin;
+    };
 }
+    /**
+     * Metod: returns ballance
+     * @returns number
+     */
+    this.getBalance = function () {
+        return this.balance;
+    };
+
+    /**
+     * Metod: sets new balance
+     */
+    this.setBalance = function (newBalance) {
+        this.balance = newBalance;
+    };
+
 
 
 /**
@@ -46,29 +82,6 @@ function CardDataModel() {
 CardDataModel.CARD_TYPE = {
     CREDIT: 'credit',
     DEBIT: 'debit'
-};
-
-CardDataModel.prototype.getBallance = function () {
-    return this.ballance;
-};
-
-CardDataModel.prototype.checkPin = function (inputPin) {
-    for (var i = 0; i < inputPin.length; i++) {
-        if(this.defaultPin){
-            this.pin = this.defaultPin;
-        }
-        if (inputPin[i] !== this.pin[i]) {
-            return false
-        }
-    }
-        return true;
-};
-
-CardDataModel.prototype.setPin = function (newPin) {
-    if (this.defaultPin){
-        delete this.defaultPin
-    }
-    this.pin = newPin;
 };
 
 CardDataModel.prototype.isNotExpired = function () {
@@ -82,7 +95,7 @@ CardDataModel.prototype.isNotExpired = function () {
     }
 };
 
-CardDataModel.prototype.isCardOk = function (inputPin) {
+CardDataModel.prototype.accessGranted = function (inputPin) {
     if (this.checkPin(inputPin) && this.isNotExpired()){
         return true;
     } else {
