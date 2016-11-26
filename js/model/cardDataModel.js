@@ -18,7 +18,7 @@ function CardDataModel() {
     /**
      * Amount of money on card
      */
-    var balance = 100;
+    var ballance = 100;
 
     /**
      * Name of person who own card
@@ -62,15 +62,15 @@ function CardDataModel() {
      * Metod: returns ballance
      * @returns number
      */
-    this.getBalance = function () {
-        return this.balance;
+    this.getBallance = function () {
+        return this.ballance;
     };
 
     /**
-     * Metod: sets new balance
+     * Metod: sets new ballance
      */
-    this.setBalance = function (newBalance) {
-        this.balance = newBalance;
+    this.setBalance = function (newBallance) {
+        this.ballance = newBallance;
     };
 
 
