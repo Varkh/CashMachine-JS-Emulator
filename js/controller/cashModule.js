@@ -9,8 +9,8 @@ function CashModule() {
 
 
     this.getCash = function(amount,nominal) {
-        var bills = [{nominal: 100, number: 5}, {nominal: 200, number: 5},{nominal: 500, number: 5},
-            {nominal: 10, number: 2},{nominal: 20, number: 5},{nominal: 5, number: 5},{nominal: 50, number: 5}];
+        var bills = [{nominal: 500, number: 5}, {nominal: 200, number: 5},{nominal: 100, number: 5},
+            {nominal: 50, number: 2},{nominal: 20, number: 5},{nominal: 10, number: 5}];
         var nominals = [];
         while (amount != 0) {
             for (var i = 0; i < bills.length; i++) {
@@ -18,6 +18,7 @@ function CashModule() {
                     amount -= bills[i].nominal;
                     bills[i].number -= 1;
                     nominals.push(bills[i].nominal);
+                    break;
                 }
 
             }
