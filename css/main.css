@@ -1,1 +1,37 @@
 
+.display {
+	width: 137px;
+	height: 110px;
+	background-color:#54c8f2;
+	float: left;
+}
+.textarea {
+	width: 190px;
+}
+.number-buttons {
+	width: 8%;
+	text-align: center;
+	float: left;
+}
+
+.control {
+	width: 70px;
+	margin-bottom:3px;
+}
+
+.empty {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 9px; 
+}
+.left-side-buttons {
+	float: left;
+}
+
+.right-side-buttons {
+	margin-left: 2px;
+}
+
+.clear {
+	clear: both;
+}
