@@ -27,6 +27,7 @@ function Core(cashModule, cardModule, navigation) {
         this.error = error;
         navigation.set(this.state, this.error);
     };
+
     switch (this.state) {
         case 0:
             this.pushCard = function (cardData) {
@@ -39,6 +40,7 @@ function Core(cashModule, cardModule, navigation) {
             };
             console.log('insert Card');
             break;
+
         case 1:
             this.enterChar = function (button) {
                 if ($.isNumeric(button) && pin.length < 4) {
@@ -68,6 +70,7 @@ function Core(cashModule, cardModule, navigation) {
                 console.log('enter PIN');
             };
             break;
+
         case 2:
             this.enterChar = function (button) {
                 if ($.isNumeric(button)) {
@@ -95,6 +98,7 @@ function Core(cashModule, cardModule, navigation) {
                 console.log('enter Sum');
             };
             break;
+        
         case 3:
             cardModule.minus(sumCash);
             cashModule.minus();
@@ -102,98 +106,4 @@ function Core(cashModule, cardModule, navigation) {
             this.initCore(0, 0)
             console.log('OK');
     }
-
-
 }
-
-
-/* this.enterChar = function (button) {
- switch (this.state) {
- case 1:
- if ($.isNumeric(button)&&pin.length<4) {
- pin=pin+button;
- }
-
- if (pin.length===4&&button==='Submit') {
- var chekPin = cardModule.checkPin(pin);
- var chekDate=cardModule.checkDate();
- if (chekPin&&chekDate) { this.state=2;
- } else {
- if (!chekPin) {this.error=1}
- if (!chekDate) {this.error=2}
- this.state=1;
- }
-
- }else if (button==='Cancel'){
- this.pin='';
- //отдать карту
- }
- break;
-
- case 2:
- if ($.isNumeric(button)) {
- sumCash=this.sumCash+button;
- }
-
- if (button==='Submit') {
- this.getCash();
- this.state=3;
- } else if (button==='Cancel') {
- sumCash=''
- }
- break;
- };
-
-
- this.getOutput = function () {
- return this.output;
- }
-
- }*/
-
-
-
-
-
-
-
-/*
-
- this.output="Waiting for card";
- this.cardInserted=false;
- this.pinChecked=false;
- this.cardChecked=false;
-
-
- this.checkCardDate = function () {
- var date=new Date ()
- var dateM=date.getMonth();
- var dateY=+1+'/'+date.getFullYear();
- if (new Date (dateY,dateM)< cardModule.readCard('date')){
- this.output="Card out of date!";
- }
- }
-
- this.enterSumCash = function (Cash) {
- if ($.isNumeric(button)) {
- this.sumCash=this.sumCash+button;
- }
-
- if (button==='Submit') {
- this.getCash();
- } else if (button==='Cancel') {this.sumCash=''}
- };
-
- this.getOutput = function () {
- return this.output;
- }
-
- this.getCash=function (money) {
- var isMoney=cardModule.getBalance;
- if (isMoney<money) {this.output='No money'; return;}
- if (this.cardInserted&&this.pinChecked&&this.cardChecked) {
- if (cashModule.checkMoney(money)) {
- cashModule.getCash(money);
- }else this.output='There is not enought money';
- } else {this.output='Strange error'}
- }*/
