@@ -1,4 +1,4 @@
-function NavigationModule() {
+function NavigationModule(displayView) {
     var startingPoint = menuInitialization();
 
 
