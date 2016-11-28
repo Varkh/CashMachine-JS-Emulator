@@ -6,33 +6,38 @@
  * @constructor
  */
 function Core(cashModule, cardModule, navigation) {
-    this.state = 0;
+    var STATE_ENUM = {
+        WAITING: 0,
+        CARD_INSERTED: 1,
+        ENTER_SUM: 2,
+        PUSH_MONEY: 3
+    };
+    this.state = STATE_ENUM.WAITING;
     var sumCash = '';
     var pin = '';
-    /*0 - ожидание карты
-     * 1 - карта вставлена, жду пин
-     * 2- пин и дата карты подтверждены, введите сумму
-     * 3- на карте и в кешмодуле сумма есть, выдать наличку*/
-    this.error = 0;
-    /*0 -все ок
+
+    /**
+     * 0 -все ок
      * 1 - неверный пин
      * 2- карта просрочена
      * 3- на карте недостаточно денег
      * 4- в банкомате недостаточно денег*/
+    this.error = 0;
+
 
     this.initCore = function (state, error) {
         for (var key in this) {
-           if (key!=='pushCard'&&key!=='initCore') delete this[key];
+            if (key !== 'pushCard' && key !== 'initCore') delete this[key];
         }
         this.state = state;
         this.error = error;
 
         switch (this.state) {
-            case 0:
+            case STATE_ENUM.WAITING:
                 console.log('insert Card');
                 break;
 
-            case 1:
+            case STATE_ENUM.CARD_INSERTED:
                 this.enterChar = function (button) {
                     if ($.isNumeric(button) && pin.length < 4) {
                         pin = pin + button;
@@ -62,7 +67,7 @@ function Core(cashModule, cardModule, navigation) {
                 console.log('enter PIN');
                 break;
 
-            case 2:
+            case STATE_ENUM.ENTER_SUM:
                 this.enterChar = function (button) {
                     if ($.isNumeric(button)) {
                         sumCash = sumCash + button;
@@ -90,9 +95,9 @@ function Core(cashModule, cardModule, navigation) {
                 console.log('enter Sum');
                 break;
 
-            case 3:
-              /*  cardModule.minus(sumCash);
-                cashModule.minus();*/
+            case STATE_ENUM.PUSH_MONEY:
+                /*  cardModule.minus(sumCash);
+                 cashModule.minus();*/
                 //отдать карту
                 this.pushCard(0);
                 this.initCore(0, 0)
@@ -111,6 +116,7 @@ function Core(cashModule, cardModule, navigation) {
             this.initCore(0, 0);
         }
     };
-    this.initCore(0,0);
+    this.initCore(0, 0);
+
 
 }
