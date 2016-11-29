@@ -109,7 +109,6 @@ function Core(cashModule, cardModule, navigation) {
         stateSum.onSubmitBtnClickAction = function () {
             console.log('Enter Sum Cash');
             if (cash.length > 0) {
-                console.log(cash)
                 var isSum = true; //cashModule.chekCash(cash);  return true/false if enought money
                 var isBalanse = true; //cardModule.chekBalance(cash); return true/false if enought money in card
 
@@ -119,12 +118,14 @@ function Core(cashModule, cardModule, navigation) {
                     cash = '';
                     setStatus(ERROR_ENUM.ERROR_BALANCE);
                 } else {
-                   // cashModule.getCash(cash);            get cash
-                   // cardModule.minBalanse(cash);
+                    cashModule.getCash(cash);
+                    cardModule.minBalanse(cash);
                     cash = '';
-                    setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
-                    self.pushCard(0);
-
+                    setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.CASH_ADD);
+                    setTimeout(function () {
+                        setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+                        self.pushCard(0);
+                    },2000);
                 }
             }
         };
