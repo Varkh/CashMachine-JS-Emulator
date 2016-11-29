@@ -1,11 +1,13 @@
 "use strict";
 
 function GeneralView(core) {
-	
 	var numbers = $(".number");
-	
-	numbers.onclick(function(event) {
-		var pushedButton = event.target.value;
-		core.value = pushedButton.value;
-	});
+
+	for (var i = 0; i < numbers.length; i++) {
+		
+		numbers[i].onclick = function(event) {
+			core = event.target.textContent;
+			console.log(core);
+		}
+	}
 }
