@@ -13,15 +13,17 @@
 <div id="mocha"></div>
 
 <script>
-    mocha.setup('bdd');
+    mocha.ui('bdd');
+    mocha.reporter('html');
     var assert = chai.assert;
 </script>
 
-<script src="./js/controller/cardModule.js"></script>
-<script src="./test/controller/cardModuleTest.js"></script>
+<script src="../js/controller/cardModule.js"></script>
+<script src="controller/cardModuleTest.js"></script>
 
 <script>
-    mocha.run();
+    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+    else { mocha.run(); }
 </script>
 </body>
 </html>
