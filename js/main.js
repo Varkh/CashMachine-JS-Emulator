@@ -18,6 +18,9 @@ $(function () {
 $(function () {
     $(".add-card-button").click(function () {
         $(".name-input").toggle();
-    $(".name-input").keydown(cardLayoutView())
     });
+});
+
+$(function () {
+    $(".name-input").keydown(cardLayoutView());
 });
