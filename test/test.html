@@ -12,6 +12,8 @@
 <script src="lib/mocha.min.js"></script>
 <script src="lib/chai.min.js"></script>
 <script>
+    console.log(typeof window.initMochaPhantomJS());
+    window.initMochaPhantomJS();
     mocha.ui('bdd');
     mocha.reporter('html');
     var assert = chai.assert;
