@@ -14,3 +14,10 @@ $(function () {
 
     window.atm = core;
 });
+
+$(function () {
+    $(".add-card-button").click(function () {
+        $(".name-input").toggle();
+    $(".name-input").keydown(cardLayoutView())
+    });
+});

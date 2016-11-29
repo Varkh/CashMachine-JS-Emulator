@@ -18,12 +18,14 @@ function CardDataModel() {
     /**
      * Amount of money on card
      */
-    var ballance = 100;
+    var ballance = 0;
 
     /**
      * Name of person who own card
      */
     this._holderName = 'Вася Пупкин';
+
+    this._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     /**
      * ExpirationDate
