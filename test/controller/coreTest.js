@@ -114,7 +114,7 @@ describe("Core Tests", function () {
         atm8.onNumBtnClick('1111');
         atm8.onSubmitBtnClick();
         atm8.onNumBtnClick('700');
-        atm8.onCancelBtnClick()
+        atm8.onCancelBtnClick();
         it("After cash entered and cancel - return to state 1", function () {
             assert.equal(atm8.state,1);
         });

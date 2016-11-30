@@ -97,10 +97,10 @@ CardDataModel.prototype.isNotExpired = function () {
     }
 };
 
-CardDataModel.prototype.accessGranted = function (inputPin) {
+/*CardDataModel.prototype.accessGranted = function (inputPin) {
     if (this.checkPin(inputPin) && this.isNotExpired()){
         return true;
     } else {
         return false;
     }
-};
+};*/

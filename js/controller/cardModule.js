@@ -6,16 +6,38 @@
  * @constructor
  */
 function CardModule() {
-    var isAutorized = false;
+    //var isAutorized = false;
 
+    var card;
+
+    /**
+     * Metod: sets using card for futher operations
+     * @param usingCard
+     */
+    this.setCard = function (usingCard) {
+        this.card = usingCard;
+    };
     /**
      * Metod: check if pin is correct and expired date of this card not reached
      * input param: card, PIN
      * return: boolean
      */
-    this.readCard = function (card, enteredPin) {
-        if (card.accessGranted(enteredPin)){
-            isAutorized = true;
+    this.chkPin = function (enteredPin) {
+        if (this.card.checkPin(enteredPin)){
+            return true;
+        } else {
+            return false;
+        }
+    };
+    /**
+     * Metod: looks if card expired
+     * return: {boolean}
+     */
+    this.chkDate = function () {
+        if(this.card.isNotExpired()){
+            return true;
+        } else {
+            return false
         }
     };
 
@@ -24,8 +46,8 @@ function CardModule() {
      * input param: card
      * return: number
      */
-    this.viewBallance = function (card) {
-        return card.getBallance;
+    this.viewBallance = function () {
+        return this.card.getBallance;
     };
 
     /**
@@ -33,8 +55,8 @@ function CardModule() {
      * param sum, card
      * return: boolean
      */
-    this.isEnoughMoney = function (card, sum) {
-        if(card.getBallance >= sum){
+    this.isEnoughMoney = function (sum) {
+        if(this.card.getBallance >= sum){
             return true;
         } else {
             return false;
@@ -45,7 +67,7 @@ function CardModule() {
      * Metod: sets new ballance to this card
      * param card, givenSum
      */
-    this.setNewBalance = function (card, givenSum) {
+    this.setNewBalance = function (givenSum) {
         var finalSum = card.getBallance - givenSum;
         card.setBalance(finalSum);
     };

@@ -1,17 +1,20 @@
 "use strict";
 
 function CardLayoutView(wallet) {
+    var $nameInput = $(".name-input");
     $(".add-card-button").click(function () {
-        $(".name-input").toggle();
+        $nameInput.toggle();
+        $(".ok-button").toggle();
     });
-    $(".name-input").keydown(function (e) {
-        if (e.keyCode == 13){
+    $nameInput.keydown(function (e) {
+        if (e.keyCode == 13) {
             var newcard = new CardDataModel();
             newcard._holderName = this.value;
-            var newCardView = $('div');
-            newCardView.className = "new-card";
-            newCardView.Data = newcard;
-            this.parent.appendChild(newCardView);
+            $('div')
+                .addClass("new-card")
+                .data(newcard)
+                .appendTo($nameInput.parent());
         }
-    })
+    });
 }
+

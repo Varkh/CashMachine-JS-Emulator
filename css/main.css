@@ -107,3 +107,7 @@ button {
 	width: 300px;
 	background-color: saddlebrown;
 }
+
+.ok-button {
+	display: none;
+}
