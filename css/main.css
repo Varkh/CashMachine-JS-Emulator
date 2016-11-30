@@ -1,37 +1,91 @@
-
-.display {
-	width: 137px;
-	height: 110px;
-	background-color:#54c8f2;
-	float: left;
-}
-.textarea {
-	width: 190px;
-}
-.number-buttons {
-	width: 8%;
+body {
 	text-align: center;
-	float: left;
 }
 
-.control {
-	width: 70px;
-	margin-bottom:3px;
+button {
+	background: linear-gradient(45deg, rgba(192,192,192,1) 0%, rgba(255,255,255,1) 49%, rgba(212,212,212,1) 99%, rgba(212,212,212,1) 100%);
+	border-radius: 3px;
+}
+.wrapper {
+	display: inline-block;
+	width: 40%;
+	position: relative;
 }
 
+.left-side-buttons, .right-side-buttons {
+	display: inline-block;
+}
 .empty {
 	width: 20px;
 	height: 20px;
-	margin-bottom: 9px; 
+	margin-top: 10px;
 }
-.left-side-buttons {
-	float: left;
+.display-area, .text-area, .buttons {
+	display: inline-block;
+}
+.display {
+	display: inline-block;
+	width: 127px;
+	height: 97px;
+	background:radial-gradient(ellipse at center, rgba(204,238,252,1) 0%, rgba(197,234,252,1) 33%, rgba(111,208,219,1) 99%, rgba(110,208,219,1) 100%);
+	border-top: 5px groove rgb(226, 224, 236);
+  border-right: 5px ridge rgb(226, 224, 236);
+  border-bottom: 7px ridge rgb(215, 212, 230);
+  border-left: 5px groove rgb(226, 224, 236);
 }
 
-.right-side-buttons {
-	margin-left: 2px;
+.number-buttons {
+	width: 50%;
+	display: inline-block;
+
 }
 
-.clear {
-	clear: both;
+.number {
+	width: 29px;
+	height: 29px;
+	display: inline-block;
+
+}
+
+.control-buttons {
+	display: inline-block;
+}
+.control {
+	width: 75px;
+	padding: 4px 5px;
+	margin-bottom: 17px;
+}
+
+.card {
+	position: absolute;
+	top: 10px;
+	right: 0;
+}
+
+.cansel-button {
+	background: linear-gradient(45deg, rgba(227,0,0,1) 0%, rgba(255,0,0,1) 50%, rgba(171,0,0,1) 100%);
+	border-color: red;
+}
+
+.submit-button {
+	background: linear-gradient(45deg, rgba(202,255,196,1) 0%, rgba(202,255,196,1) 1%, rgba(7,171,12,1) 50%, rgba(35,255,15,1) 100%);
+	border-color: #0fae14;
+}
+
+.clear-button {
+	background: linear-gradient(45deg, rgba(199,204,59,1) 0%, rgba(199,204,59,1) 1%, rgba(250,242,22,1) 50%, rgba(193,199,12,1) 100%);
+	border-color: #e1df28;
+}
+
+.cash-machine {
+	width: 250px;
+	display: inline-block;
+	padding: 10px 0;
+	background: linear-gradient(37deg, rgba(0,92,0,1) 0%, rgba(0,207,0,1) 100%);
+	box-shadow: -12px -8px 30px -6px rgba(0,0,0,0.75);
+}
+
+.buttons {
+width: 80%;
+
 }

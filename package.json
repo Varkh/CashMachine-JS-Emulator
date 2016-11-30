@@ -1,0 +1,16 @@
+{
+  "name": "CashMachine",
+  "version": "0.0.1",
+  "description": "CashMachine Emulator on JavaScript",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai" : "*"
+  }
+}
