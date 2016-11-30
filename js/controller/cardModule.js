@@ -7,6 +7,14 @@
  */
 function CardModule() {
     var isAutorized = false;
+    document.body.addEventListener("card-inserted", function(){
+        core.pushCard();
+    });
+    var core = null;
+
+    this.setCore = function(_core) {
+        core = _core;
+    }
 
     /**
      * Metod: check if pin is correct and expired date of this card not reached

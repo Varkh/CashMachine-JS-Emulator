@@ -27,7 +27,7 @@ function Core(cashModule, cardModule, navigation) {
     var stateWait, statePin, stateSum, stateCash;
 
     this.pushCard = function (cardData) {
-
+        
         if (cardData) {
             cardModule.readCard(cardData);
             setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.CARD_INSERTED);
