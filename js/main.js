@@ -11,6 +11,6 @@ $(function () {
     );
 
     var view = new GeneralView(core);
-
+    var wallet = new CardLayoutView();
     window.atm = core;
 });
