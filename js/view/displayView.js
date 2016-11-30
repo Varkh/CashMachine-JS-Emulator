@@ -8,7 +8,7 @@ function DisplayView() {
     	displayButtons[i].textContent = i + 1;
     	displayButtons[i].onclick = function(event) {
 			var entered = event.target.textContent;
-			console.log(entered);
+			displaySpace.textContent = entered + " option selected";
 		}
     }
 }
