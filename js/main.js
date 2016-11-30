@@ -11,16 +11,6 @@ $(function () {
     );
 
     var view = new GeneralView(core);
-
+    var wallet = new CardLayoutView();
     window.atm = core;
-});
-
-$(function () {
-    $(".add-card-button").click(function () {
-        $(".name-input").toggle();
-    });
-});
-
-$(function () {
-    $(".name-input").keydown(cardLayoutView());
 });
