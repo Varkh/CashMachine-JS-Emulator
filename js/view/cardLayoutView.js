@@ -1,10 +1,10 @@
 "use strict";
 
-function CardLayoutView(wallet) {
+function CardLayoutView() {
     var $nameInput = $(".name-input");
     $(".add-card-button").click(function () {
         $nameInput.toggle();
-        $(".ok-button").toggle();
+       // $(".ok-button").toggle();
     });
     $nameInput.keydown(function (e) {
         if (e.keyCode == 13) {
