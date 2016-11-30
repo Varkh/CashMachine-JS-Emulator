@@ -1,3 +1,4 @@
+
 body {
 	text-align: center;
 }
@@ -36,9 +37,9 @@ p {
 	height: 100px;
 	background:radial-gradient(ellipse at center, rgba(204,238,252,1) 0%, rgba(197,234,252,1) 33%, rgba(111,208,219,1) 99%, rgba(110,208,219,1) 100%);
 	border-top: 5px groove rgb(226, 224, 236);
-  border-right: 5px ridge rgb(226, 224, 236);
-  border-bottom: 7px ridge rgb(215, 212, 230);
-  border-left: 5px groove rgb(226, 224, 236);
+	border-right: 5px ridge rgb(226, 224, 236);
+	border-bottom: 7px ridge rgb(215, 212, 230);
+	border-left: 5px groove rgb(226, 224, 236);
 }
 
 .number-buttons {
@@ -93,6 +94,23 @@ p {
 }
 
 .buttons {
-width: 80%;
+	width: 80%;
 
+}
+
+.wallet {
+	margin-left: 2px;
+	margin-top:  100px;
+	position: absolute;
+	padding-left: 510px;
+}
+
+.name-input {
+	display: none;
+}
+
+.new-card {
+	height: 200px;
+	width: 300px;
+	background-color: saddlebrown;
 }

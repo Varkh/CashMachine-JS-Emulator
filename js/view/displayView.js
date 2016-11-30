@@ -1,6 +1,7 @@
 "use strict";
-var display = document.getElementById("display");
+
 function DisplayView() {
+	var display = document.getElementById("display");
 	this.message = document.createElement("DIV");
 	this.showHello = function(text) {
 		this.message.innerText = text;
@@ -11,6 +12,19 @@ function DisplayView() {
 		this.message.innerText = numbers;
 		display.appendChild(this.message);
 	}
+
+	buttonInitialization();
+
+	function buttonInitialization() {
+	    var displayButtons = document.getElementsByClassName("empty");
+	    var displaySpace = document.getElementById("display");
+	    
+	    for (var i = 0; i < displayButtons.length; i++) {
+	    	displayButtons[i].textContent = i + 1;
+	    	displayButtons[i].onclick = function(event) {
+				var entered = event.target.textContent;
+				displaySpace.textContent = entered + " option selected";
+			}
+	    }
+	}
 }
-var a = new DisplayView().showHello("showHello");
-console.log(a);
