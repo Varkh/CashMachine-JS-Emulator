@@ -25,6 +25,6 @@ function DisplayView() {
 				var entered = event.target.textContent;
 				displaySpace.textContent = entered + " option selected";
 			}
-	    }
+	  }
 	}
 }

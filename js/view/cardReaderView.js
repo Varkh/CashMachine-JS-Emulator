@@ -1,4 +1,5 @@
 "use strict";
+
 function CardReaderView() {
 	var cardButton = document.getElementById("getCard");
 	var event = new Event('card-inserted');
@@ -6,3 +7,5 @@ function CardReaderView() {
 		document.body.dispatchEvent(event);
 	}
 }
+
+
