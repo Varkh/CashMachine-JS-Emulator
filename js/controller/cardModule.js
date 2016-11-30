@@ -6,7 +6,19 @@
  * @constructor
  */
 function CardModule() {
+<<<<<<< HEAD
     //var isAutorized = false;
+=======
+    var isAutorized = false;
+    document.body.addEventListener("card-inserted", function(){
+        core.pushCard();
+    });
+    var core = null;
+
+    this.setCore = function(_core) {
+        core = _core;
+    }
+>>>>>>> eaba41871d070ee0096611be3a8ad80601d3cfa3
 
     var card;
 
