@@ -8,16 +8,16 @@ describe("Card Module Tests", function () {
         beforeEach(function() {
             instance = new CardModule();
             card = new CardDataModel();
-            instance.setCard(card);
+            instance.setCard(card)
         });
 
-        it("check PIN", function () {
-            var p = [1,1,1,0];
-            assert.isFalse(instance.chkPin(p));
+        it("check default", function () {
+            assert.isFalse(instance.readCard(card));
         });
 
-        it("check card expired date", function () {
-            assert.isFalse(instance.chkDate());
+        it("check if user can continue with this card", function () {
+            var p = [1,1,1,1];
+            assert.isFalse(instance.checkDate() == instance.checkPin(p));
         });
     });
 });

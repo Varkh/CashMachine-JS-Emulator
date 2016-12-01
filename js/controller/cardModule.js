@@ -18,6 +18,8 @@ function CardModule() {
 
     var card;
 
+    var isAutorized = false;
+
     /**
      * Metod: sets using card for futher operations
      * @param usingCard
@@ -30,8 +32,8 @@ function CardModule() {
      * input param: card, PIN
      * return: boolean
      */
-    this.chkPin = function (enteredPin) {
-        if (this.card.checkPin(enteredPin)){
+    this.checkPin = function (enteredPin) {
+        if (this.card.checkCardPin(enteredPin)){
             return true;
         } else {
             return false;
@@ -41,7 +43,7 @@ function CardModule() {
      * Metod: looks if card expired
      * return: {boolean}
      */
-    this.chkDate = function () {
+    this.checkDate = function () {
         if(this.card.isNotExpired()){
             return true;
         } else {
@@ -79,4 +81,12 @@ function CardModule() {
         var finalSum = card.getBallance - givenSum;
         card.setBalance(finalSum);
     };
+
+    this.readCard = function (cardData) {
+        this.setCard(cardData);
+        if (this.card.isNotExpired()){
+            isAutorized = true;
+        }
+        return isAutorized;
+    }
 }

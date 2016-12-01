@@ -44,7 +44,7 @@ function CardDataModel() {
      * this metod allow to check input pin and real pin of this card
      * returns boolean
      */
-    this.checkPin = function (inputPin) {
+    this.checkCardPin = function (inputPin) {
         for (var i = 0; i < inputPin.length; i++) {
             if (inputPin[i] !== pin[i]) {
                 return false
@@ -75,15 +75,13 @@ function CardDataModel() {
         this.ballance = newBallance;
     };
 
-
-
-/**
- * Data Type(Enum) for Card Type
- * @type {{CREDIT: string, DEBIT: string}}
- */
-CardDataModel.CARD_TYPE = {
-    CREDIT: 'credit',
-    DEBIT: 'debit'
+    /**
+     * Data Type(Enum) for Card Type
+     * @type {{CREDIT: string, DEBIT: string}}
+     */
+    CardDataModel.CARD_TYPE = {
+        CREDIT: 'credit',
+        DEBIT: 'debit'
 };
 
 CardDataModel.prototype.isNotExpired = function () {
