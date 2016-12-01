@@ -46,7 +46,7 @@ function CardDataModel() {
      */
     this.checkPin = function (inputPin) {
         for (var i = 0; i < inputPin.length; i++) {
-            if (inputPin[i] !== this.pin[i]) {
+            if (inputPin[i] !== pin[i]) {
                 return false
             }
         }
