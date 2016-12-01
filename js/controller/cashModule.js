@@ -15,6 +15,7 @@ function CashModule() {
 
             if(amount > 4250){
                 throw new Error("Can't give cash. Not enough money.");
+
             }
 
             for (var i = 0; i < bills.length; i++) {
@@ -29,4 +30,6 @@ function CashModule() {
         return nominals;
     }
 }
+
+
 
