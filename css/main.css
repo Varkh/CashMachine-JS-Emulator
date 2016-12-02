@@ -7,10 +7,6 @@ button {
 	background: linear-gradient(45deg, rgba(192,192,192,1) 0%, rgba(255,255,255,1) 49%, rgba(212,212,212,1) 99%, rgba(212,212,212,1) 100%);
 	border-radius: 3px;
 }
-
-p {
-	display: inline;
-}
 .wrapper {
 	display: inline-block;
 	width: 40%;
@@ -118,6 +114,9 @@ p {
 	position: relative;
 }
 
-.ok-button {
-	display: none;
+.addedInput{
+	width: 110px;
+
+	text-align: center;
+
 }

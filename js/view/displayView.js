@@ -1,17 +1,31 @@
 "use strict";
 
 function DisplayView() {
-	var display = document.getElementById("display");
+	var that = this;
+
+    var display = document.getElementById("display");
 	this.message = document.createElement("DIV");
 	this.showMessage = function(text) {
 		this.message.innerText = text;
 		display.appendChild(this.message);
 	};
 
-	this.showInput = function(text, inputValue) {
+	this.showInput = function(text, inputValue, hide) {
 		this.message.innerText = text;
 		display.appendChild(this.message);
-	};
+
+        this.input = document.createElement("input");
+        this.input.className = "addedInput";
+        this.input.value = inputValue;
+
+        this.input.setAttribute("readonly","readonly");
+
+        display.appendChild(this.input);
+
+        if(hide == true){
+            this.input.setAttribute("type","password");
+        }
+};
 
 	buttonInitialization();
 
