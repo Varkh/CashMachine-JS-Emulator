@@ -110,7 +110,14 @@ p {
 }
 
 .new-card {
+	margin-top: 5px;
+	margin-left: 5px;
 	height: 200px;
 	width: 300px;
 	background-color: saddlebrown;
+	position: relative;
+}
+
+.ok-button {
+	display: none;
 }
