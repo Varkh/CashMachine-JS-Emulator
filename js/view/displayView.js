@@ -3,7 +3,8 @@
 function DisplayView() {
     var displayButtons = document.getElementsByClassName("empty");
     var displaySpace = document.getElementById("display");
-    
+    displaySpace.textContent = "INSERT CARD";
+
     for (var i = 0; i < displayButtons.length; i++) {
     	displayButtons[i].textContent = i + 1;
     	displayButtons[i].onclick = function(event) {

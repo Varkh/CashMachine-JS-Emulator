@@ -6,7 +6,7 @@ function GeneralView(core) {
 	for (var i = 0; i < numbers.length; i++) {
 		
 		numbers[i].onclick = function(event) {
-			core = event.target.textContent;
+			core = event.target.innerText;
 			console.log(core);
 		}
 	}
