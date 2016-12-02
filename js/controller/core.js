@@ -94,7 +94,7 @@ function Core(cashModule, cardModule, navigation) {
             submitBtnClick: function () {
                 console.log('Enter Sum Cash');
                 if (cash.length > 0) {
-                    console.log(cash)
+                    console.log(cash);
                     var isSum = true; //cashModule.chekCash(cash);  return true/false if enought money
                     var isBalanse = true; //cardModule.chekBalance(cash); return true/false if enought money in card
 

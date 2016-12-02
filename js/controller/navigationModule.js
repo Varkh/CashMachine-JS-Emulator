@@ -1,5 +1,5 @@
 function NavigationModule(displayView) {
-    var startingPoint = menuInitialization();
+    //var startingPoint = menuInitialization();
 
     this.showMessage = function (message) {
         displayView.showMessage(message);
