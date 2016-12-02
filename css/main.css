@@ -19,15 +19,18 @@ p {
  
 .left-side-buttons {
 	float: left;
+	margin-top: 19px
 }
 .right-side-buttons {
 	display: inline-block;
+	margin-top: 19px
+
 }
 .empty {
 	width: 20px;
 	height: 20px;
-	margin-bottom: 20px;
-	margin-top: 9px;
+	
+	margin-top: 10px;
 }
 .display-area, .text-area, .buttons {
 	display: inline-block;
