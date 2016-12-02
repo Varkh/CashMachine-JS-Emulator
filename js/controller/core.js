@@ -57,15 +57,12 @@ function Core(cashModule, cardModule, navigation) {
         });
         statePin = new State("CARD_INSERTED", modules, null, {
             numBtnClick: function (button) {
-                console.log('Enter PIN');
                 if (pin.length < 4) {
                     pin.push(+button);
                 }
             },
             cardPush: onCardPushHandler,
             submitBtnClick: function () {
-                console.log(pin);
-
 
                 if (pin.length === 4) {
                     var chkPin=cardModule.checkPin(pin);
@@ -87,7 +84,6 @@ function Core(cashModule, cardModule, navigation) {
                 }
             },
             cancelBtnClick: function () {
-                console.log('Enter PIN');
                 pin = [];
                 self.pushCard(0);
                 currectState=stateWait;
@@ -104,18 +100,39 @@ function Core(cashModule, cardModule, navigation) {
         stateSum = new State("ENTER_SUM", modules, null, {
             cardPush: onCardPushHandler,
             numBtnClick: function (button) {
-                console.log('Enter Sum Cash');
                 cash = cash + button;
             },
 
             submitBtnClick: function () {
-                console.log('Enter Sum Cash');
                 if (cash.length > 0) {
-                    console.log(cash);
-                    var isSum = true; //cashModule.chekCash(cash);  return true/false if enought money
-                    var isBalanse = true; //cardModule.chekBalance(cash); return true/false if enought money in card
+
+                    var isBalanse = cardModule.isEnoughMoney(+cash);
 //переделать через try catch
-                    if (!isSum) {
+                    if (!isBalanse) {
+
+                        setTimeout(currectState.init,1000);
+                    }
+
+                    try {
+                        cashModule.getCash(+cash);
+                        navigation.showMessage("Take your money! You WIN.");
+
+                        setTimeout(function () {
+                            currectState=stateWait;
+                            currectState.init();
+                        },1000);
+
+
+                        setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+                    } catch (e) {
+                        cash='';
+                        navigation.showMessage(e);
+                        setTimeout(function () {
+                            currectState.init();
+                        },1000);
+                    }
+
+             /*       if (!isSum) {
                         navigation.showMessage("Sum is incorrect");
                         setStatus(ERROR_ENUM.ERROR_CASH);
                     } else if (!isBalanse) {
@@ -128,13 +145,11 @@ function Core(cashModule, cardModule, navigation) {
                         cash = '';
                         setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
                         self.pushCard(0);
-
-                    }
+                    }*/
                 }
             },
 
             cancelBtnClick: function () {
-                console.log('Enter Sum Cash');
                 cash = '';
                 self.pushCard(0);
                 currectState=stateWait;
@@ -156,7 +171,6 @@ function Core(cashModule, cardModule, navigation) {
 
     var startingState = initStates(modules);
     var currectState = startingState;
-    console.log(currectState.init)
     currectState.init();
     setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
 

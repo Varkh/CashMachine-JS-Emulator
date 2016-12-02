@@ -18,7 +18,7 @@ function CardDataModel() {
     /**
      * Amount of money on card
      */
-    var ballance = 0;
+    var ballance = 500;
 
     /**
      * Name of person who own card
@@ -59,13 +59,9 @@ function CardDataModel() {
     this.setPin = function (newPin) {
         pin = newPin;
     };
-}
-    /**
-     * Metod: returns ballance
-     * @returns number
-     */
+
     this.getBallance = function () {
-        return this.ballance;
+        return ballance;
     };
 
     /**
@@ -74,6 +70,12 @@ function CardDataModel() {
     this.setBalance = function (newBallance) {
         this.ballance = newBallance;
     };
+}
+    /**
+     * Metod: returns ballance
+     * @returns number
+     */
+
 
     /**
      * Data Type(Enum) for Card Type
