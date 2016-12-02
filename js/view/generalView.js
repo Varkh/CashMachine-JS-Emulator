@@ -1,8 +1,8 @@
 "use strict";
 
 function GeneralView(core) {
-	$('.number-buttons .number').click(function() {
-		core.onNumBtnClick(this.value);
+	$('.number-buttons .number').click(function(e) {
+		core.onNumBtnClick($(e.target).text());
 	});
 	var $ctrl = $('.control-buttons');
 	$ctrl.find('#cancel').click(core.onCancelBtnClick);
