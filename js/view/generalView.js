@@ -1,13 +1,12 @@
 "use strict";
 
 function GeneralView(core) {
-	var numbers = $(".number");
+	$('.number-buttons .number').click(function() {
+		core.onNumBtnClick(this.value);
+	});
+	var $ctrl = $('.control-buttons');
+	$ctrl.find('#cancel').click(core.onCancelBtnClick);
+	$ctrl.find('#clear').click(core.onClearBtnClick);
+	$ctrl.find('#submit').click(core.onSubmitBtnClick)
 
-	for (var i = 0; i < numbers.length; i++) {
-		
-		numbers[i].onclick = function(event) {
-			core = event.target.textContent;
-			console.log(core);
-		}
-	}
 }
