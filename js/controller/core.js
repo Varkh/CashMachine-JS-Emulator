@@ -77,8 +77,8 @@ function Core(cashModule, cardModule, navigation) {
                         currectState.init();
                     }else if (!chkPin) {
                         navigation.showMessage("Pin is incorrect, try again.");
+                        pin=[];
                         setTimeout(currectState.init,1000);
-                        setStatus(ERROR_ENUM.ERROR_PIN);
                     }else if (!chkDate) {
                         navigation.showMessage("Card is out to date!");
                         setStatus(ERROR_ENUM.ERROR_DATE);
@@ -98,7 +98,7 @@ function Core(cashModule, cardModule, navigation) {
                 pin = [];
             },
             init:function () {
-                navigation.showMessage("Waiting for card");
+                navigation.showMessage("Enter PIN");
             }
         });
         stateSum = new State("ENTER_SUM", modules, null, {
