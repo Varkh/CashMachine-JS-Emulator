@@ -3,8 +3,7 @@
 var STATE_ENUM = {
     WAITING: 1,
     CARD_INSERTED: 2,
-    ENTER_SUM: 3,
-    CASH_ADD:4
+    ENTER_SUM: 3
 };
 
 var ERROR_ENUM = {
@@ -22,7 +21,7 @@ function Core(cashModule, cardModule, navigation) {
         card: cardModule,
         navigation: navigation
     };
-    var pin = '';
+    var pin = [];
     var cash = '';
     var stateWait, statePin, stateSum, stateCash;
 
@@ -33,7 +32,7 @@ function Core(cashModule, cardModule, navigation) {
             setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.CARD_INSERTED);
             currectState = currectState.next;
         } else {
-            cardModule.readCard(cardData);
+            cardModule.setCard();
             setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
             currectState = startingState;
         }
@@ -74,16 +73,19 @@ function Core(cashModule, cardModule, navigation) {
         statePin.onNumBtnClickAction = function (button) {
             console.log('Enter PIN');
             if (pin.length < 4) {
-                pin = pin + button;
+               pin.push(button);
+
             }
         };
 
         statePin.onSubmitBtnClickAction = function () {
             console.log('Enter PIN');
+
             if (pin.length === 4) {
-                var chkPin=true;//cardModule.chkPin(pin)             CardModule return true/false in method chekpin
-                var chkDate=true;//cardModule.chkDate()             CardModule return true/false in method chekDate
-                if (chkDate&&chkDate) {
+                var chkPin=cardModule.checkPin(pin);          //  CardModule return true/false in method chekpin
+                var chkDate='true' //cardModule.checkDate();           //CardModule return true/false in method chekDate
+                console.log(chkPin)
+                if (chkPin&&chkDate) {
                     setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.ENTER_SUM);
                     currectState = currectState.next;
                 }else if (!chkPin) {
