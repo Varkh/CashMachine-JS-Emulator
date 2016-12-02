@@ -3,15 +3,15 @@
 function DisplayView() {
 	var display = document.getElementById("display");
 	this.message = document.createElement("DIV");
-	this.showHello = function(text) {
+	this.showMessage = function(text) {
 		this.message.innerText = text;
 		display.appendChild(this.message);
-	}
+	};
 
-	this.showInput = function(numbers) {
-		this.message.innerText = numbers;
+	this.showInput = function(text, inputValue) {
+		this.message.innerText = text;
 		display.appendChild(this.message);
-	}
+	};
 
 	buttonInitialization();
 
