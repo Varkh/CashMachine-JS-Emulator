@@ -7,7 +7,7 @@
  *
  * @constructor
  */
-function CardDataModel() {
+function CardDataModel(holderName) {
     /**
      * Pin Code
      * should be changed to hash instead
@@ -23,9 +23,9 @@ function CardDataModel() {
     /**
      * Name of person who own card
      */
-    this._holderName = 'Вася Пупкин';
+    this._holderName = holderName;
 
-    this._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    this._cardNumber = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
     /**
      * ExpirationDate
