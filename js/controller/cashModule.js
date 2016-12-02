@@ -10,10 +10,10 @@ var arrayCash = [{nominal: 500, number: 1}];
 
 function CashModule() {
     var cashSum;
-    var minNominal = bills[0].nominal;
-
     var bills = [{nominal: 500, number: 2}, {nominal: 200, number: 3}, {nominal: 100, number: 1},
         {nominal: 50, number: 2}, {nominal: 20, number: 1}, {nominal: 10, number: 1}];
+
+    var minNominal = bills[0].nominal;
 
     function setConst() {
         cashSum = 0;
