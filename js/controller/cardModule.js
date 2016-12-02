@@ -8,7 +8,7 @@
 function CardModule() {
 
     document.body.addEventListener("card-inserted", function(){
-        core.pushCard();
+        core.pushCard(new CardDataModel());//TODO get data model from event
     });
     var core = null;
 
