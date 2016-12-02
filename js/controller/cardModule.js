@@ -6,7 +6,7 @@
  * @constructor
  */
 function CardModule() {
-    var isAutorized = false;
+
     document.body.addEventListener("card-inserted", function(){
         core.pushCard();
     });
@@ -14,16 +14,40 @@ function CardModule() {
 
     this.setCore = function(_core) {
         core = _core;
-    }
+    };
 
+    var card;
+
+    var isAutorized = false;
+
+    /**
+     * Metod: sets using card for futher operations
+     * @param usingCard
+     */
+    this.setCard = function (usingCard) {
+        card = usingCard;
+    };
     /**
      * Metod: check if pin is correct and expired date of this card not reached
      * input param: card, PIN
      * return: boolean
      */
-    this.readCard = function (card, enteredPin) {
-        if (card.accessGranted(enteredPin)){
-            isAutorized = true;
+    this.checkPin = function (enteredPin) {
+        if (card.checkCardPin(enteredPin)){
+            return true;
+        } else {
+            return false;
+        }
+    };
+    /**
+     * Metod: looks if card expired
+     * return: {boolean}
+     */
+    this.checkDate = function () {
+        if(card.isNotExpired()){
+            return true;
+        } else {
+            return false
         }
     };
 
@@ -32,7 +56,7 @@ function CardModule() {
      * input param: card
      * return: number
      */
-    this.viewBallance = function (card) {
+    this.viewBallance = function () {
         return card.getBallance;
     };
 
@@ -41,7 +65,7 @@ function CardModule() {
      * param sum, card
      * return: boolean
      */
-    this.isEnoughMoney = function (card, sum) {
+    this.isEnoughMoney = function (sum) {
         if(card.getBallance >= sum){
             return true;
         } else {
@@ -53,8 +77,17 @@ function CardModule() {
      * Metod: sets new ballance to this card
      * param card, givenSum
      */
-    this.setNewBalance = function (card, givenSum) {
+    this.setNewBalance = function (givenSum) {
         var finalSum = card.getBallance - givenSum;
         card.setBalance(finalSum);
     };
+
+    this.readCard = function (cardData) {
+        this.setCard(cardData);
+        console.log(card);
+        if (card.isNotExpired()){
+            isAutorized = true;
+        }
+        return isAutorized;
+    }
 }
