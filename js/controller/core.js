@@ -26,9 +26,8 @@ function Core(cashModule, cardModule, navigation) {
     var stateWait, statePin, stateSum, stateCash;
 
     //start init
-    var pin = '';
+    var pin = [];
     var cash = '';
-    navigation.showMessage("Waiting for card");//TODO move to status init
 
     function onCardPushHandler(cardData) {
         if (cardData) {
@@ -37,8 +36,10 @@ function Core(cashModule, cardModule, navigation) {
             setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.CARD_INSERTED);
             currectState = currectState.getNext();
         } else {
+            navigation.showMessage("Waiting for card");
             setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
             currectState = startingState;
+            currectState.init();
         }
     }
 
@@ -49,43 +50,59 @@ function Core(cashModule, cardModule, navigation) {
 
     function initStates(modules) {
         stateWait = new State("WAITING", modules, null, {
-            cardPush: onCardPushHandler
+            cardPush: onCardPushHandler,
+            init:function () {
+                navigation.showMessage("Waiting for card");
+            }
         });
         statePin = new State("CARD_INSERTED", modules, null, {
             numBtnClick: function (button) {
                 console.log('Enter PIN');
                 if (pin.length < 4) {
-                    pin = pin + button;
+                    pin.push(+button);
                 }
             },
-
+            cardPush: onCardPushHandler,
             submitBtnClick: function () {
-                console.log('Enter PIN');
                 console.log(pin);
 
+
                 if (pin.length === 4) {
-                    var chkPin=true;//cardModule.chkPin(pin)             CardModule return true/false in method chekpin
+                    var chkPin=cardModule.checkPin(pin);
                     var chkDate=true;//cardModule.chkDate()             CardModule return true/false in method chekDate
-                    if (chkDate&&chkDate) {
-                        navigation.showInput("Enter sum to get:");
+                    if (chkPin&&chkDate) {
+
                         setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.ENTER_SUM);
                         currectState = currectState.getNext();
+                        currectState.init();
                     }else if (!chkPin) {
                         navigation.showMessage("Pin is incorrect, try again.");
-                        setStatus(ERROR_ENUM.ERROR_PIN);
+                        pin=[];
+                        setTimeout(currectState.init,1000);
                     }else if (!chkDate) {
+                        navigation.showMessage("Card is out to date!");
                         setStatus(ERROR_ENUM.ERROR_DATE);
-                        self.pushCard(0);
+                        setTimeout(self.pushCard(0),1000);
                     }
                 }
             },
             cancelBtnClick: function () {
                 console.log('Enter PIN');
-                pin = '';
+                pin = [];
                 self.pushCard(0);
+                currectState=stateWait;
+                setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+            },
+
+            clearBtnClick: function () {
+                pin = [];
+            },
+            init:function () {
+                navigation.showMessage("Enter PIN");
             }
         });
         stateSum = new State("ENTER_SUM", modules, null, {
+            cardPush: onCardPushHandler,
             numBtnClick: function (button) {
                 console.log('Enter Sum Cash');
                 cash = cash + button;
@@ -97,7 +114,7 @@ function Core(cashModule, cardModule, navigation) {
                     console.log(cash);
                     var isSum = true; //cashModule.chekCash(cash);  return true/false if enought money
                     var isBalanse = true; //cardModule.chekBalance(cash); return true/false if enought money in card
-
+//переделать через try catch
                     if (!isSum) {
                         navigation.showMessage("Sum is incorrect");
                         setStatus(ERROR_ENUM.ERROR_CASH);
@@ -120,6 +137,14 @@ function Core(cashModule, cardModule, navigation) {
                 console.log('Enter Sum Cash');
                 cash = '';
                 self.pushCard(0);
+                currectState=stateWait;
+                setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+            },
+            clearBtnClick:function () {
+              cash='';
+            },
+            init:function () {
+                navigation.showInput("Enter sum to get:");
             }
         });
 
@@ -131,6 +156,8 @@ function Core(cashModule, cardModule, navigation) {
 
     var startingState = initStates(modules);
     var currectState = startingState;
+    console.log(currectState.init)
+    currectState.init();
     setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
 
     this.pushCard = function (cardData) {
