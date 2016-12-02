@@ -3,10 +3,7 @@
 function State(name, modules, nextState, handlers) {
     handlers = handlers || {};
 
-    this.init = function () {
-
-    };
-
+    this.init =  handlers.init || defaultAction;
     this.setNext = function (state) {
         nextState = state;
     };
@@ -28,4 +25,5 @@ function State(name, modules, nextState, handlers) {
     function defaultAction() {
 
     }
+
 }
