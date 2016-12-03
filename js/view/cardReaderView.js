@@ -8,4 +8,11 @@ function CardReaderView() {
 	}
 }
 
+$(document).ready(function() {
+	function blink(){
+		$('#glowingReceiver').fadeOut('fast').fadeIn('fast');
+		setTimeout(blink,1500);
+	}
+	blink();
+});
 
