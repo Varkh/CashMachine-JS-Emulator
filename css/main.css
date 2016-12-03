@@ -47,9 +47,8 @@ p {
 }
 
 .number-buttons {
-	width: 50%;
+	width: 45%;
 	display: inline-block;
-
 }
 
 .number {
@@ -62,10 +61,11 @@ p {
 .control-buttons {
 	display: inline-block;
 }
+
 .control {
 	width: 75px;
-	padding: 4px 5px;
-	margin-bottom: 17px;
+	padding: 2px 0px;
+	margin-bottom: 0px;
 }
 
 .card {
@@ -95,10 +95,12 @@ p {
 	padding: 10px 0;
 	background: linear-gradient(37deg, rgba(0,92,0,1) 0%, rgba(0,207,0,1) 100%);
 	box-shadow: -12px -8px 30px -6px rgba(0,0,0,0.75);
+	height: 500px;
 }
 
 .buttons {
 	width: 80%;
+	margin-top: 20px;
 
 }
 
@@ -125,3 +127,30 @@ p {
 .ok-button {
 	display: none;
 }
+
+#text {
+	height: 60px;
+	width: 240px;
+}
+
+#glowingReceiver {
+	
+	border-width: 4px;
+	border-color: DarkGray;
+}
+
+#staticReceiver {
+	margin-bottom: 23px;
+}
+
+#textRexeiver {
+	color: white;
+	font-size: 16px
+}
+
+
+
+
+
+
+
