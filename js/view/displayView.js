@@ -1,17 +1,30 @@
 "use strict";
 
 function DisplayView() {
-	var display = document.getElementById("display");
-	this.message = document.createElement("DIV");
+	var $display = $('#display');
+
 	this.showMessage = function(text) {
-		this.message.innerText = text;
-		display.appendChild(this.message);
+		$display.html(createTitle(text));
 	};
 
-	this.showInput = function(text, inputValue) {
-		this.message.innerText = text;
-		display.appendChild(this.message);
+	this.showInput = function(text, inputValue, hide) {
+		$display
+			.empty()
+			.append(createTitle(text))
+			.append(createInput(inputValue, hide));
 	};
+
+	function createTitle(text) {
+		return $('<DIV>').text(text);
+	}
+
+	function createInput(value, hide) {
+		return $('<input>')
+			.addClass('addedInput')
+			.val(value)
+			.prop('readonly', true)
+			.prop('type', hide ? 'password' : 'text');
+	}
 
 	buttonInitialization();
 
