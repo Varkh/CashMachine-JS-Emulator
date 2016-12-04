@@ -66,7 +66,7 @@ function CardModule() {
      * return: boolean
      */
     this.isEnoughMoney = function (sum) {
-        if(card.getBallance >= sum){
+        if(card.getBallance() > sum){
             return true;
         } else {
             return false;
@@ -84,7 +84,6 @@ function CardModule() {
 
     this.readCard = function (cardData) {
         this.setCard(cardData);
-        console.log(card);
         if (card.isNotExpired()){
             isAutorized = true;
         }

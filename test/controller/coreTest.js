@@ -27,6 +27,7 @@ describe("Core Tests", function () {
 
         var card = new CardDataModel();
 
+
         it("After card inserted - core in status Enter PIN", function () {
             atm.pushCard(card);
             assert.equal(atm.state, 2);
@@ -51,9 +52,8 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
             atm.onSubmitBtnClick();
-            atm.onNumBtnClick('600');
+            atm.onNumBtnClick('500');
             atm.onSubmitBtnClick();
-            console.log(card.isNotExpired())
             assert.equal(atm.state, 1);
         });
     });
@@ -101,7 +101,6 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(2);
             atm.onSubmitBtnClick();
             assert.equal(atm.state, 2);
-            assert.equal(atm.error, 1);
         });
     });
 
