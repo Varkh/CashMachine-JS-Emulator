@@ -8,4 +8,5 @@ function GeneralView(core) {
 	$ctrl.find('#cancel').click(core.onCancelBtnClick);
 	$ctrl.find('#clear').click(core.onClearBtnClick);
 	$ctrl.find('#submit').click(core.onSubmitBtnClick)
+
 }

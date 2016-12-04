@@ -128,36 +128,7 @@ p {
 	display: none;
 }
 
-#text {
-	height: 60px;
-	width: 240px;
+.addedInput{
+    width: 110px;
+    text-align: center;
 }
-
-#glowingReceiver {
-	
-	border-width: 4px;
-	border-color:aqua 
-}
-
-#staticReceiver {
-	margin-bottom: 23px;
-}
-
-#textRexeiver {
-	color: white;
-	font-size: 16px
-}
-
-#draggME {
-	background-color: red;
-	width: 200px;
-	height: 90px;
-	text-align: center;
-	line-height: 85px;
-	
-}
-
-
-
-
-

@@ -18,6 +18,3 @@ $(function () {
     var cardReaderView = new CardReaderView();
     window.atm = core;
 });
-
-    
-  
