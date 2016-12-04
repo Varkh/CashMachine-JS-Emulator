@@ -1,21 +1,23 @@
 "use strict";
 //for navigation module, in future navigation.set(state,error) for menu reaction
-var STATE_ENUM = {
-    WAITING: 1,
-    CARD_INSERTED: 2,
-    ENTER_SUM: 3,
-    CASH_ADD:4
-};
 
-var ERROR_ENUM = {
-    NO_ERROR: 0,
-    ERROR_PIN: 1,
-    ERROR_DATE: 2,
-    ERROR_BALANCE: 3,
-    ERROR_CASH: 4
-};
 
 function Core(cashModule, cardModule, navigation) {
+    var STATE_ENUM = {
+        WAITING: 1,
+        CARD_INSERTED: 2,
+        ENTER_SUM: 3
+    };
+
+    var STATE_TEXT = {
+        WAITING: 'Waiting for card',
+        CARD_INSERTED: 'Enter Pin',
+        ENTER_SUM: 'Enter Cash',
+        PIN_ERRROR: 'Pin is incorrect, try again.',
+        DATE_ERROR: 'Card is out to date!',
+        ALL_OK: "Take your money! You WIN."
+    };
+
     var self = this;
     var modules = {
         cash: cashModule,
@@ -25,141 +27,122 @@ function Core(cashModule, cardModule, navigation) {
 
     var stateWait, statePin, stateSum, stateCash;
 
-    //start init
     var pin = [];
     var cash = '';
 
     function onCardPushHandler(cardData) {
         if (cardData) {
-            navigation.showMessage("Enter Pin");
+            navigation.showMessage(STATE_TEXT.CARD_INSERTED);
             cardModule.readCard(cardData);
-            setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.CARD_INSERTED);
             currectState = currectState.getNext();
         } else {
-            navigation.showMessage("Waiting for card");
-            setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+            navigation.showMessage(STATE_TEXT.WAITING);
             currectState = startingState;
             currectState.init();
         }
     }
 
-    function setStatus(error, state) {
-        if (state) self.state = state;
-        self.error = error;
-    }
-
     function initStates(modules) {
         stateWait = new State("WAITING", modules, null, {
             cardPush: onCardPushHandler,
-            init:function () {
-                navigation.showMessage("Waiting for card");
+            init: function () {
+                navigation.showMessage(STATE_TEXT.WAITING);
+                pin = [];
+                cash = '';
             }
         });
+
         statePin = new State("CARD_INSERTED", modules, null, {
             numBtnClick: function (button) {
+
                 if (pin.length < 4) {
                     pin.push(+button);
                 }
+                navigation.showInput(STATE_TEXT.CARD_INSERTED, pin.join(''), 1);
             },
             cardPush: onCardPushHandler,
             submitBtnClick: function () {
 
                 if (pin.length === 4) {
-                    var chkPin=cardModule.checkPin(pin);
-                    var chkDate=true;//cardModule.chkDate()             CardModule return true/false in method chekDate
-                    if (chkPin&&chkDate) {
+                    var chkPin = cardModule.checkPin(pin);
+                    var chkDate = true;//cardModule.chkDate()             CardModule return true/false in method chekDate
 
-                        setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.ENTER_SUM);
+                    if (chkPin && chkDate) {
                         currectState = currectState.getNext();
                         currectState.init();
-                    }else if (!chkPin) {
-                        navigation.showMessage("Pin is incorrect, try again.");
-                        pin=[];
-                        setTimeout(currectState.init,1000);
-                    }else if (!chkDate) {
-                        navigation.showMessage("Card is out to date!");
-                        setStatus(ERROR_ENUM.ERROR_DATE);
-                        setTimeout(self.pushCard(0),1000);
+                        pin = [];
+                    } else if (!chkPin) {
+                        navigation.showMessage(STATE_TEXT.PIN_ERRROR);
+                        pin = [];
+                        setTimeout(currectState.init, 1000);
+                    } else if (!chkDate) {
+                        navigation.showMessage(STATE_TEXT.DATE_ERROR);
+                        setTimeout(self.pushCard(0), 1000);
                     }
                 }
             },
             cancelBtnClick: function () {
                 pin = [];
                 self.pushCard(0);
-                currectState=stateWait;
-                setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+                currectState = stateWait;
             },
-
             clearBtnClick: function () {
                 pin = [];
+                navigation.showInput(STATE_TEXT.CARD_INSERTED, pin.join(''), 1);
             },
-            init:function () {
-                navigation.showMessage("Enter PIN");
+            init: function () {
+                navigation.showMessage(STATE_TEXT.CARD_INSERTED);
             }
         });
+
         stateSum = new State("ENTER_SUM", modules, null, {
             cardPush: onCardPushHandler,
             numBtnClick: function (button) {
                 cash = cash + button;
+                navigation.showInput(STATE_TEXT.ENTER_SUM, cash, 0);
             },
 
             submitBtnClick: function () {
                 if (cash.length > 0) {
 
                     var isBalanse = cardModule.isEnoughMoney(+cash);
-//переделать через try catch
+
                     if (!isBalanse) {
 
-                        setTimeout(currectState.init,1000);
+                        setTimeout(currectState.init, 1000);
                     }
 
                     try {
-                        cashModule.getCash(+cash);
-                        navigation.showMessage("Take your money! You WIN.");
-
+                        var cashOut = cashModule.getCash(+cash);
+                        navigation.showMessage(STATE_TEXT.ALL_OK);
+                        $('#text').val(cashOut);
                         setTimeout(function () {
-                            currectState=stateWait;
+                            currectState = stateWait;
                             currectState.init();
-                        },1000);
+                            $('#text').val('');
+                        }, 1000);
 
-
-                        setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
                     } catch (e) {
-                        cash='';
+                        cash = '';
                         navigation.showMessage(e);
                         setTimeout(function () {
                             currectState.init();
-                        },1000);
+                        }, 1000);
                     }
-
-             /*       if (!isSum) {
-                        navigation.showMessage("Sum is incorrect");
-                        setStatus(ERROR_ENUM.ERROR_CASH);
-                    } else if (!isBalanse) {
-                        cash = '';
-                        setStatus(ERROR_ENUM.ERROR_BALANCE);
-                    } else {
-                        navigation.showMessage("Take your money! You WIN.");
-                        cashModule.getCash(cash);
-                        // cardModule.minBalanse(cash);
-                        cash = '';
-                        setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
-                        self.pushCard(0);
-                    }*/
                 }
             },
 
             cancelBtnClick: function () {
                 cash = '';
                 self.pushCard(0);
-                currectState=stateWait;
-                setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
+                currectState = stateWait;
             },
-            clearBtnClick:function () {
-              cash='';
+            clearBtnClick: function () {
+                cash = '';
+                navigation.showInput(STATE_TEXT.ENTER_SUM, cash, 0);
             },
-            init:function () {
-                navigation.showInput("Enter sum to get:");
+            init: function () {
+                navigation.showInput(STATE_TEXT.ENTER_SUM, cash);
             }
         });
 
@@ -172,7 +155,6 @@ function Core(cashModule, cardModule, navigation) {
     var startingState = initStates(modules);
     var currectState = startingState;
     currectState.init();
-    setStatus(ERROR_ENUM.NO_ERROR, STATE_ENUM.WAITING);
 
     this.pushCard = function (cardData) {
         currectState.onCardPush(cardData);
@@ -193,4 +175,8 @@ function Core(cashModule, cardModule, navigation) {
     this.onClearBtnClick = function () {
         currectState.onClearBtnClickAction();
     };
+
+    this.coreState = function () {
+        return STATE_ENUM[currectState.statusCore]
+    }
 }

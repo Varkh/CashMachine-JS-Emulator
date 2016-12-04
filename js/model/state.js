@@ -2,7 +2,7 @@
 
 function State(name, modules, nextState, handlers) {
     handlers = handlers || {};
-
+    this.statusCore=name;
     this.init =  handlers.init || defaultAction;
     this.setNext = function (state) {
         nextState = state;
