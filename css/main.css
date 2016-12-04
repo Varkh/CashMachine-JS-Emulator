@@ -127,3 +127,8 @@ p {
 .ok-button {
 	display: none;
 }
+
+.addedInput{
+    width: 110px;
+    text-align: center;
+}
