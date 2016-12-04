@@ -7,18 +7,31 @@ function CardReaderView() {
 		document.body.dispatchEvent(event);
 	}
 }
-
+//code for glowing button
 $(document).ready(function() {
 	function glow(){
-		$('#glowingReceiver').fadeOut('fast').fadeIn('fast');
+		var  glowingBtn = $('#glowingReceiver');
+		glowingBtn.fadeOut('fast').fadeIn('fast');
 		setTimeout(glow,1500);
 	}
+	
 	glow();
 });
 
-//code for dragging (from LearnJavascript)
+//code for overlapping and cardInsertion action
 var draggME = document.getElementById('draggME');
+var  glowingBtn = document.getElementById('glowingReceiver').getBoundingClientRect();
+var cardYX = draggME.getBoundingClientRect();
 
+function overlap(coordinates) {
+	var overlap = !(coordinates.right < glowingBtn.left ||
+		coordinates.left > glowingBtn.right ||
+		coordinates.bottom < glowingBtn.top ||
+		coordinates.top > glowingBtn.bottom);
+	return overlap
+	};
+
+//code for dragging (from LearnJavascript)
 draggME.onmousedown = function(event) {
 	draggME.style.position = 'absolute';
 	moveAt(event);
@@ -38,6 +51,9 @@ draggME.onmousedown = function(event) {
 		document.onmousemove = null;
 		draggME.onmouseup = null;
 	}
+	if (overlap(cardYX)) {
+		console.log("HI");
+	};
 }
 
   
