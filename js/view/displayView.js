@@ -1,7 +1,6 @@
 "use strict";
 
 function DisplayView() {
-
 	var display = document.getElementById("display");
 	this.message = document.createElement("DIV");
 	this.showMessage = function(text) {
