@@ -1,17 +1,17 @@
 "use strict";
 
 function CardReaderView() {
-	var cardButton = document.getElementById("getCard");
-	var event = new CustomEvent('cart-inserted', { 'detail': {
-							username: new CardDataModel("Name"),
-							cardNumber: new CardDataModel().cardNumber,
-							date: new CardDataModel().expirationDate,
-							cardType: new CardDataModel().cardType
-							}
-						});
-	cardButton.onclick = function() {
+	var cardReader = $('#receiverWrap');
+	var event = new CustomEvent('cart-inserted', { 'detail': JSON.stringify(new CardDataModel(holderName, cardNumber, expirationDate, balance)});
+	cardReader.click(function() {
 		document.body.dispatchEvent(event);
+	});
+	glow();
+
+	function glow(){
+		$('#receiver').fadeOut('fast').fadeIn('fast');
+		setTimeout(glow,1500);
 	}
 }
 
-
+  

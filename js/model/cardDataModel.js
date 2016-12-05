@@ -7,7 +7,7 @@
  *
  * @constructor
  */
-function CardDataModel(holderName) {
+function CardDataModel(holderName, cardNumber, expirationDate, balance) {
     /**
      * Pin Code
      * should be changed to hash instead
@@ -18,20 +18,20 @@ function CardDataModel(holderName) {
     /**
      * Amount of money on card
      */
-    var ballance = 0;
+    this.ballance = balance;
 
     /**
      * Name of person who own card
      */
     this._holderName = holderName;
 
-    this._cardNumber = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+    this._cardNumber = cardNumber;
 
     /**
      * ExpirationDate
      * Not allowed to use card with expired date
      */
-    this._expirationDate = [30,1,2018];
+    this._expirationDate = expirationDate;
 
     /**
      * CardType: debit/credit
@@ -44,9 +44,9 @@ function CardDataModel(holderName) {
      * this metod allow to check input pin and real pin of this card
      * returns boolean
      */
-    this.checkPin = function (inputPin) {
+    this.checkCardPin = function (inputPin) {
         for (var i = 0; i < inputPin.length; i++) {
-            if (inputPin[i] !== this.pin[i]) {
+            if (inputPin[i] !== pin[i]) {
                 return false
             }
         }
@@ -59,13 +59,9 @@ function CardDataModel(holderName) {
     this.setPin = function (newPin) {
         pin = newPin;
     };
-}
-    /**
-     * Metod: returns ballance
-     * @returns number
-     */
+
     this.getBallance = function () {
-        return this.ballance;
+        return ballance;
     };
 
     /**
@@ -74,16 +70,20 @@ function CardDataModel(holderName) {
     this.setBalance = function (newBallance) {
         this.ballance = newBallance;
     };
+}
+    /**
+     * Metod: returns ballance
+     * @returns number
+     */
 
 
-
-/**
- * Data Type(Enum) for Card Type
- * @type {{CREDIT: string, DEBIT: string}}
- */
-CardDataModel.CARD_TYPE = {
-    CREDIT: 'credit',
-    DEBIT: 'debit'
+    /**
+     * Data Type(Enum) for Card Type
+     * @type {{CREDIT: string, DEBIT: string}}
+     */
+    CardDataModel.CARD_TYPE = {
+        CREDIT: 'credit',
+        DEBIT: 'debit'
 };
 
 CardDataModel.prototype.isNotExpired = function () {
@@ -97,10 +97,10 @@ CardDataModel.prototype.isNotExpired = function () {
     }
 };
 
-CardDataModel.prototype.accessGranted = function (inputPin) {
+/*CardDataModel.prototype.accessGranted = function (inputPin) {
     if (this.checkPin(inputPin) && this.isNotExpired()){
         return true;
     } else {
         return false;
     }
-};
+};*/
