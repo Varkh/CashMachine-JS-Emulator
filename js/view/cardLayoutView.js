@@ -15,7 +15,7 @@ function CardLayoutView() {
                 .data(newcard)
                 .appendTo($nameInput.parent());
         }
-    });
+    });    
 }
 
 //code for dragging (from LearnJavascript)
@@ -34,6 +34,27 @@ draggME.onmousedown = function(event) {
 
     document.onmousemove = function(event3) {
         moveAt(event3);
+            
+            //card insertion code start
+            var target = draggME.getBoundingClientRect();
+            var point = document.getElementById('receiver').getBoundingClientRect();
+            
+            
+            function overlap(tar) {
+                return !(
+                tar.top > point.bottom ||
+                tar.right < point.left ||
+                tar.bottom < point.top ||
+                tar.left > point.right
+                );
+            }
+            
+            if (overlap(target)) {
+                document.body.removeChild(draggME);
+                console.log("card inserted");
+            }
+            //card insertion code end
+
     };
 
     draggME.onmouseup = function() {
