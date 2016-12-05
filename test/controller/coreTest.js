@@ -9,9 +9,11 @@ describe("Core Tests", function () {
             },
             showInput: function () {
 
+            },
+            createMenu: function () {
+                
             }
         };
-
         var cardModule = new CardModule();
         var core = new Core(
             new CashModule(),
@@ -52,9 +54,13 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
             atm.onSubmitBtnClick();
+            atm.selectMenuBtnClickAction('7');
+
             atm.onNumBtnClick('500');
             atm.onSubmitBtnClick();
+            console.log(atm.coreState())
             setTimeout(function () {
+
                 assert.equal(atm.coreState(), 1)
             },1000)
         });
@@ -91,6 +97,9 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
             atm.onSubmitBtnClick();
+            atm.selectMenuBtnClickAction('7');
+            atm.selectMenuBtnClickAction(7);
+
             atm.onCancelBtnClick();
             assert.equal(atm.coreState(), 1);
         });
@@ -135,19 +144,6 @@ describe("Core Tests", function () {
             atm.onClearBtnClick();
             atm.onSubmitBtnClick();
             assert.equal(atm.coreState(), 3);
-        });
-
-
-        it("After cash entered and cancel - return to state 1", function () {
-            atm.pushCard(card);
-            atm.onNumBtnClick(1);
-            atm.onNumBtnClick(1);
-            atm.onNumBtnClick(1);
-            atm.onNumBtnClick(1);
-            atm.onSubmitBtnClick();
-            atm.onNumBtnClick('700');
-            atm.onCancelBtnClick();
-            assert.equal(atm.coreState(), 1);
         });
 
     });
