@@ -5,8 +5,8 @@ function NavigationModule(displayView) {
         displayView.showMessage(message);
     };
 
-    this.showInput = function (message) {
-        displayView.showInput(message);
+    this.showInput = function (message,text,hide) {
+        displayView.showInput(message,text,hide);
     };
 
 

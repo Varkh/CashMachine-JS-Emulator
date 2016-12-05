@@ -30,7 +30,7 @@ describe("Core Tests", function () {
 
         it("After card inserted - core in status Enter PIN", function () {
             atm.pushCard(card);
-            assert.equal(atm.state, 2);
+            assert.equal(atm.coreState(), 2);
         });
 
 
@@ -41,11 +41,11 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 3);
+            assert.equal(atm.coreState(), 3);
         });
 
 
-        it("After cash entered - core in status Waiting", function () {
+        it("After cash entered - core in status Waiting after 1 second", function () {
             atm.pushCard(card);
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
@@ -54,7 +54,9 @@ describe("Core Tests", function () {
             atm.onSubmitBtnClick();
             atm.onNumBtnClick('500');
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 1);
+            setTimeout(function () {
+                assert.equal(atm.coreState(), 1)
+            },1000)
         });
     });
     describe("State2", function () {
@@ -66,7 +68,7 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
-            assert.equal(atm.state, 2);
+            assert.equal(atm.coreState(), 2);
         });
 
 
@@ -78,7 +80,7 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onClearBtnClick()
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 2);
+            assert.equal(atm.coreState(), 2);
         });
 
 
@@ -90,7 +92,7 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onSubmitBtnClick();
             atm.onCancelBtnClick();
-            assert.equal(atm.state, 1);
+            assert.equal(atm.coreState(), 1);
         });
 
         it("On incorrect PIN - no state change, error incorect PIN", function () {
@@ -100,14 +102,14 @@ describe("Core Tests", function () {
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(2);
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 2);
+            assert.equal(atm.coreState(), 2);
         });
     });
 
 
     describe("State3", function () {
         var card = new CardDataModel();
-        it("After cash entered - give cash end return in status 1", function () {
+        it("After cash entered - give cash end return in status 1 after 1 second", function () {
             atm.pushCard(card);
             atm.onNumBtnClick(1);
             atm.onNumBtnClick(1);
@@ -116,7 +118,9 @@ describe("Core Tests", function () {
             atm.onSubmitBtnClick();
             atm.onNumBtnClick('600');
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 1);
+            setTimeout(function () {
+                assert.equal(atm.coreState(), 1)
+            },1000)
         });
 
 
@@ -130,7 +134,7 @@ describe("Core Tests", function () {
             atm.onNumBtnClick('700');
             atm.onClearBtnClick();
             atm.onSubmitBtnClick();
-            assert.equal(atm.state, 3);
+            assert.equal(atm.coreState(), 3);
         });
 
 
@@ -143,7 +147,7 @@ describe("Core Tests", function () {
             atm.onSubmitBtnClick();
             atm.onNumBtnClick('700');
             atm.onCancelBtnClick();
-            assert.equal(atm.state, 1);
+            assert.equal(atm.coreState(), 1);
         });
 
     });
