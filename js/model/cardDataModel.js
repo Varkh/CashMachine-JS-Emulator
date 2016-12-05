@@ -14,7 +14,6 @@ function CardDataModel(holderName, cardNumber, expirationDate, balance) {
      * or used only for card creation
      */
     var pin = [1,1,1,1];
-
     /**
      * Amount of money on card
      */

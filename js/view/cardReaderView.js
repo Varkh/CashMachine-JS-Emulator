@@ -7,7 +7,6 @@ function CardReaderView() {
 		document.body.dispatchEvent(event);
 	});
 	glow();
-
 	function glow(){
 		$('#receiver').fadeOut('fast').fadeIn('fast');
 		setTimeout(glow,1500);
