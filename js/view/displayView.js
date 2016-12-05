@@ -1,16 +1,29 @@
 "use strict";
 
 function DisplayView() {
-	var display = document.getElementById("display");
-	this.message = document.createElement("DIV");
-	this.showHello = function(text) {
-		this.message.innerText = text;
-		display.appendChild(this.message);
+	var $display = $('#display');
+
+	this.showMessage = function(text) {
+		$display.html(createTitle(text));
+	};
+
+	this.showInput = function(text, inputValue, hide) {
+		$display
+			.empty()
+			.append(createTitle(text))
+			.append(createInput(inputValue, hide));
+	};
+
+	function createTitle(text) {
+		return $('<DIV>').text(text);
 	}
 
-	this.showInput = function(numbers) {
-		this.message.innerText = numbers;
-		display.appendChild(this.message);
+	function createInput(value, hide) {
+		return $('<input>')
+			.addClass('addedInput')
+			.val(value)
+			.prop('readonly', true)
+			.prop('type', hide ? 'password' : 'text');
 	}
 
 	buttonInitialization();
@@ -25,6 +38,6 @@ function DisplayView() {
 				var entered = event.target.textContent;
 				displaySpace.textContent = entered + " option selected";
 			}
-	  }
+		}
 	}
 }

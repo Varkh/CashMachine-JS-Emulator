@@ -19,22 +19,26 @@ p {
  
 .left-side-buttons {
 	float: left;
+	margin-top: 19px
 }
 .right-side-buttons {
 	display: inline-block;
+	margin-top: 19px
+
 }
 .empty {
 	width: 20px;
 	height: 20px;
-	margin-bottom: 10px;
+	
+	margin-top: 10px;
 }
 .display-area, .text-area, .buttons {
 	display: inline-block;
 }
 .display {
 	float: left;
-	width: 127px;
-	height: 100px;
+	width: 240px;
+	height: 170px;
 	background:radial-gradient(ellipse at center, rgba(204,238,252,1) 0%, rgba(197,234,252,1) 33%, rgba(111,208,219,1) 99%, rgba(110,208,219,1) 100%);
 	border-top: 5px groove rgb(226, 224, 236);
 	border-right: 5px ridge rgb(226, 224, 236);
@@ -43,9 +47,8 @@ p {
 }
 
 .number-buttons {
-	width: 50%;
+	width: 45%;
 	display: inline-block;
-
 }
 
 .number {
@@ -58,10 +61,11 @@ p {
 .control-buttons {
 	display: inline-block;
 }
+
 .control {
 	width: 75px;
-	padding: 4px 5px;
-	margin-bottom: 17px;
+	padding: 2px 0px;
+	margin-bottom: 0px;
 }
 
 .card {
@@ -86,15 +90,17 @@ p {
 }
 
 .cash-machine {
-	width: 250px;
+	width: 320px;
 	display: inline-block;
 	padding: 10px 0;
 	background: linear-gradient(37deg, rgba(0,92,0,1) 0%, rgba(0,207,0,1) 100%);
 	box-shadow: -12px -8px 30px -6px rgba(0,0,0,0.75);
+	height: 500px;
 }
 
 .buttons {
 	width: 80%;
+	margin-top: 20px;
 
 }
 
@@ -110,7 +116,19 @@ p {
 }
 
 .new-card {
+	margin-top: 5px;
+	margin-left: 5px;
 	height: 200px;
 	width: 300px;
 	background-color: saddlebrown;
+	position: relative;
+}
+
+.ok-button {
+	display: none;
+}
+
+.addedInput{
+    width: 110px;
+    text-align: center;
 }

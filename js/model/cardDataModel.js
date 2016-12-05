@@ -7,30 +7,31 @@
  *
  * @constructor
  */
-function CardDataModel(holderName, cardNumber, expirationDate, balance) {
+function CardDataModel() {
     /**
      * Pin Code
      * should be changed to hash instead
      * or used only for card creation
      */
     var pin = [1,1,1,1];
+
     /**
      * Amount of money on card
      */
-    this.ballance = balance;
+    var ballance = 500;
 
     /**
      * Name of person who own card
      */
-    this._holderName = holderName;
+    this._holderName = 'Вася Пупкин';
 
-    this._cardNumber = cardNumber;
+    this._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     /**
      * ExpirationDate
      * Not allowed to use card with expired date
      */
-    this._expirationDate = expirationDate;
+    this._expirationDate = [30,1,2018];
 
     /**
      * CardType: debit/credit

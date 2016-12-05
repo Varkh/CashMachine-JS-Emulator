@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <title>CashMachine</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/receiver.css">
+
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <script defer src="./js/model/navigationMenuModel.js"></script>
     <script defer src="./js/model/cardDataModel.js"></script>
+    <script defer src="./js/model/state.js"></script>
 
     <script defer src="./js/controller/cardModule.js"></script>
     <script defer src="./js/controller/cashModule.js"></script>
@@ -22,7 +26,6 @@
 </head>
 <body>
   <div id="wrapper" class="wrapper">
-  <button type="button" class="card" id="getCard">Put your card here</button>
     <div class="cash-machine">
     <div class="display-area" id="display-area">
       <div class="left-side-buttons">
@@ -52,8 +55,13 @@
       <button type="button" id="btn9" class="number">9</button>
       <button type="button" id="btn0" class="number">0</button>
     </div>
-    <div class="control-buttons">
-      <button type="button" id="cansel" class="control cansel-button">Cansel</button><br>
+    <iv class="control-buttons">
+      <div id="receiverWrap">
+        <p id="textRexeiver"> Insert card here </p>
+        <hr id="receiver">
+      </div>
+      <hr id="staticReceiver">
+      <button type="button" id="cancel" class="control cansel-button">Cancel</button><br>
       <button type="button" id="clear" class="control clear-button">Clear</button><br>
       <button type="button" id="submit" class="control  submit-button">Submit</button><br>
     </div>
@@ -62,7 +70,11 @@
   </div>
 <div class = "wallet">
     <button type="button" class = 'add-card-button'>Add card</button>
-    <input placeholder="Enter the name of cardholder" class = "name-input">
+    <br>
+    <input placeholder="Enter the name of cardholder" class = "name-input"><button class = "ok-button">←</button>
+</div>
+<div id="draggME">
+  draggME
 </div>
 </body>
 </html>
