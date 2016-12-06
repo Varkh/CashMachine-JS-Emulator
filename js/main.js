@@ -14,7 +14,7 @@ $(function () {
     cardModule.setCore(core);
 
     var view = new GeneralView(core);
-    var wallet = new CardLayoutView();
+    //var wallet = new CardLayoutView();
     var cardReaderView = new CardReaderView();
     window.atm = core;
 });

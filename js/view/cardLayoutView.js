@@ -1,7 +1,7 @@
 "use strict";
 
 function CardLayoutView() {
-    var $nameInput = $(".name-input");
+    /*var $nameInput = $(".name-input");
     $(".add-card-button").click(function () {
         $nameInput.toggle();
        // $(".ok-button").toggle();
@@ -15,8 +15,50 @@ function CardLayoutView() {
                 .data(newcard)
                 .appendTo($nameInput.parent());
         }
-    });    
+    });    */
+
+
+
+
+    //version 2
+
+    this.createCard = function createCard(lable) {
+        var card = document.createElement("DIV");
+        card.innerText = lable;
+        document.body.appendChild(card);
+    }
+    
+    this.addDataToCard = function(name) {
+        var cardData = new CardDataModel();
+        cardData._holderName = name;
+        console.log(cardData);
+    }
+
+
+    var inputString = document.createElement("INPUT");
+    inputString.value = "Enter Your Name";
+    document.body.appendChild(inputString);
+
+    inputString.onfocus = function() {
+        if (this.value == 'Enter Your Name') {
+            this.value = '';
+        }
+    };
+
+    inputString.onkeypress = function(e) {
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            newCard.addDataToCard(inputString.value);
+            newCard.createCard(inputString.value);
+            inputString.value = ""
+        }
+    };
 }
+
+
+var newCard = new CardLayoutView();
+console.log(newCard);
+
 
 //code for dragging (from LearnJavascript)
 var draggME = document.getElementById('draggME');
