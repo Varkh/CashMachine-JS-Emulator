@@ -6,77 +6,8 @@
  * Used in CardModule
  *
  * @constructor
- */
-// function CardDataModel(holderName, cardNumber, expirationDate, balance) {
-//     /**
-//      * Pin Code
-//      * should be changed to hash instead
-//      * or used only for card creation
-//      */
-//     var pin = [1,1,1,1];
-//     /**
-//      * Amount of money on card
-//      */
-
-//     this._balance = balance;
-
-//     /**
-//      * Name of person who own card
-//      */
-//     this._holderName = holderName;
-
-//     this._cardNumber = cardNumber;
-
-//     /**
-//      * ExpirationDate
-//      * Not allowed to use card with expired date
-//      */
-//     this._expirationDate = expirationDate;
-
-//     /**
-//      * CardType: debit/credit
-//      * credit card allows to have negative balance
-//      */
-//     this._cardType = CardDataModel.CARD_TYPE.DEBIT;
-/**
- * Model for data from card
- *
- * Used in CardModule
- *
- * @constructor
- */
-// function CardDataModel() {
-//     /**
-//      * Pin Code
-//      * should be changed to hash instead
-//      * or used only for card creation
-//      */
-//     var pin = [1,1,1,1];
-
-//     /**
-//      * Amount of money on card
-//      */
-//     var ballance = 500;
-
-//     /**
-//      * Name of person who own card
-//      */
-//     this._holderName = 'Вася Пупкин';
-
-//     this._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-
-//     /**
-//      * ExpirationDate
-//      * Not allowed to use card with expired date
-//      */
-//     this._expirationDate = [30,1,2018];
-
-//     /**
-//      * CardType: debit/credit
-//      * credit card allows to have negative balance
-//      */
-//     this._cardType = CardDataModel.CARD_TYPE.DEBIT;
-function CardDataModel(holderName, cardNumber, expirationDate, balance) {
+**/
+function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
     /**
      * Pin Code
      * should be changed to hash instead
@@ -87,7 +18,7 @@ function CardDataModel(holderName, cardNumber, expirationDate, balance) {
      * Amount of money on card
      */
 
-    this._balance = balance;
+    this._ballance = ballance;
 
     /**
      * Name of person who own card
@@ -102,10 +33,10 @@ function CardDataModel(holderName, cardNumber, expirationDate, balance) {
      */
     this._expirationDate = expirationDate;
 
-    /**
-     * CardType: debit/credit
-     * credit card allows to have negative balance
-     */
+//     /**
+//      * CardType: debit/credit
+//      * credit card allows to have negative balance
+//      */
     this._cardType = CardDataModel.CARD_TYPE.DEBIT;
     /**
      * Metod: check pin
