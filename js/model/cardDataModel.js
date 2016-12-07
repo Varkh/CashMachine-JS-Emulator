@@ -8,6 +8,7 @@
  * @constructor
 **/
 function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
+    var self=this;
     /**
      * Pin Code
      * should be changed to hash instead
@@ -61,7 +62,7 @@ function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
     };
 
     this.getBallance = function () {
-        return ballance;
+        return self._ballance;
     };
 
     /**

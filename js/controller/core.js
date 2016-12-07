@@ -17,7 +17,8 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
         PIN_ERRROR: 'Pin is incorrect, try again.',
         DATE_ERROR: 'Card is out to date!',
         ALL_OK: "Take your money! You WIN.",
-        CHANGE_PIN: 'Change PIN'
+        CHANGE_PIN: 'Change PIN',
+        NO_BALLANCE: 'No money at card'
     };
 
     var self = this;
@@ -40,8 +41,11 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
             currectState = currectState.getNext();
         } else {
             navigation.showMessage(STATE_TEXT.WAITING);
+            var card = cardModule.returnCard();
+            cardModule.setCard(0);
             currectState = startingState;
             currectState.init();
+            var event = new CustomEvent('cart-injected', {'detail':card});
         }
     }
 
@@ -110,43 +114,63 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         navigation.createMenu(['','','','','','','','Back'],true)
                         break;
                     case '5':
-                        try {
-                            var cashOut = cashModule.getCash(cashModule.getNominals()[0]);
-                            navigation.showMessage(STATE_TEXT.ALL_OK);
-                            cashOutModule.showMoney(cashOut);
-                            cardModule.setNewBalance(cashOut[0]);
-                            setTimeout(function () {
-                                currectState = stateWait;
-                                currectState.init();
-                            }, timeOut);
+                        var isBalanse = cardModule.isEnoughMoney(cashModule.getNominals()[0]);
+                        if (isBalanse) {
+                            try {
+                                var cashOut = cashModule.getCash(cashModule.getNominals()[0]);
+                                navigation.showMessage(STATE_TEXT.ALL_OK);
+                                cashOutModule.showMoney(cashOut);
+                                cardModule.setNewBalance(cashOut[0]);
+                                setTimeout(function () {
+                                    currectState = stateWait;
+                                    currectState.init();
+                                }, timeOut);
 
-                        } catch (e) {
-                            cash = '';
-                            navigation.showMessage(e);
+                            } catch (e) {
+                                cash = '';
+                                navigation.showMessage(e);
+                                setTimeout(function () {
+                                    currectState.init();
+                                }, timeOut);
+                            }
+                        } else {
+                            navigation.showMessage(STATE_TEXT.NO_BALLANCE);
                             setTimeout(function () {
+                                currectState=stateMenu;
                                 currectState.init();
                             }, timeOut);
                         }
+
                         break;
 
                     case '6':
-                        try {
-                            var cashOut = cashModule.getCash(cashModule.getNominals()[1]);
-                            navigation.showMessage(STATE_TEXT.ALL_OK);
-                            cashOutModule.showMoney(cashOut);
-                            cardModule.setNewBalance(cashOut[0]);
-                            setTimeout(function () {
-                                currectState = stateWait;
-                                currectState.init();
-                            }, timeOut);
+                        var isBalanse = cardModule.isEnoughMoney(cashModule.getNominals()[1]);
+                        if (isBalanse) {
+                            try {
+                                var cashOut = cashModule.getCash(cashModule.getNominals()[1]);
+                                navigation.showMessage(STATE_TEXT.ALL_OK);
+                                cashOutModule.showMoney(cashOut);
+                                cardModule.setNewBalance(cashOut[0]);
+                                setTimeout(function () {
+                                    currectState = stateWait;
+                                    currectState.init();
+                                }, timeOut);
 
-                        } catch (e) {
-                            cash = '';
-                            navigation.showMessage(e);
+                            } catch (e) {
+                                cash = '';
+                                navigation.showMessage(e);
+                                setTimeout(function () {
+                                    currectState.init();
+                                }, timeOut);
+                            }
+                        } else {
+                            navigation.showMessage(STATE_TEXT.NO_BALLANCE);
                             setTimeout(function () {
+                                currectState=stateMenu;
                                 currectState.init();
                             }, timeOut);
                         }
+
                         break;
                     case '8':
                         pin = [];
@@ -218,64 +242,9 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                     var isBalanse = cardModule.isEnoughMoney(parseInt(cash));
 
                     if (!isBalanse) {
-
+                        navigation.showMessage(STATE_TEXT.NO_BALLANCE);
                         setTimeout(currectState.init, timeOut);
-                    }
-
-                    try {
-                        var cashOut = cashModule.getCash(parseInt(cash));
-                        navigation.showMessage(STATE_TEXT.ALL_OK);
-                        cashOutModule.showMoney(cashOut);
-                        cardModule.setNewBalance(parseInt(cash));
-                        setTimeout(function () {
-                            currectState = stateWait;
-                            currectState.init();
-                        }, timeOut);
-
-                    } catch (e) {
-                        cash = '';
-                        navigation.showMessage(e);
-                        setTimeout(function () {
-                            currectState.init();
-                        }, timeOut);
-                    }
-                }
-            },
-
-            cancelBtnClick: function () {
-                cash = '';
-                self.pushCard(0);
-                currectState = stateWait;
-            },
-            clearBtnClick: function () {
-                cash = '';
-                navigation.showInput(STATE_TEXT.ENTER_SUM, cash, 0);
-            },
-            init: function () {
-                navigation.showInput(STATE_TEXT.ENTER_SUM, cash);
-            }
-        });
-
-
-
-        stateSum = new State("ENTER_SUM", modules, null, {
-            cardPush: onCardPushHandler,
-            numBtnClick: function (button) {
-                cash = cash + button;
-                navigation.showInput(STATE_TEXT.ENTER_SUM, cash, 0);
-            },
-
-            submitBtnClick: function () {
-                if (cash.length > 0) {
-
-                    var isBalanse = cardModule.isEnoughMoney(parseInt(cash));
-
-                    if (!isBalanse) {
-
-                        setTimeout(currectState.init, timeOut);
-                    }
-
-                    try {
+                    } else { try {
                         var cashOut = cashModule.getCash(parseInt(cash));
                         navigation.showMessage(STATE_TEXT.ALL_OK);
                         cashOutModule.showMoney(cashOut);
@@ -290,7 +259,9 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         setTimeout(function () {
                             currectState.init();
                         }, timeOut);
-                    }
+                    }}
+
+
                 }
             },
 
