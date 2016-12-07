@@ -45,7 +45,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
             cardModule.setCard(0);
             currectState = startingState;
             currectState.init();
-            var event = new CustomEvent('cart-injected', {'detail':card});
+            //var event = new CustomEvent('cart-injected', {'detail':card});
         }
     }
 
