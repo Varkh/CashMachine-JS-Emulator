@@ -7,7 +7,7 @@ describe("Card Module Tests", function () {
 
         beforeEach(function() {
             instance = new CardModule();
-            card = new CardDataModel();
+            card = new CardDataModel('Имя Фамилия', [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],  [30,1,2018], 500);
             instance.setCard(card)
         });
 

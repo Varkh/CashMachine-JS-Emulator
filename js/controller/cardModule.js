@@ -5,10 +5,12 @@
  *
  * @constructor
  */
-function CardModule() {
 
-    document.body.addEventListener("card-inserted", function(){
-        core.pushCard(new CardDataModel());//TODO get data model from event
+
+function CardModule() {
+    document.body.addEventListener("cart-inserted", function(e) {
+        var cardParams = JSON.parse(e.detail);
+        core.pushCard(new CardDataModel(cardParams._holderName, cardParams._cardNumber, cardParams._expirationDate, cardParams._ballance));
     });
     var core = null;
 

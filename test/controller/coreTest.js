@@ -27,7 +27,7 @@ describe("Core Tests", function () {
     });
     describe("States", function () {
 
-        var card = new CardDataModel();
+        var card = new CardDataModel('Имя Фамилия', [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],  [30,1,2018], 500);
 
 
         it("After card inserted - core in status Enter PIN", function () {
@@ -66,7 +66,7 @@ describe("Core Tests", function () {
         });
     });
     describe("State2", function () {
-        var card = new CardDataModel();
+        var card = new CardDataModel('Имя Фамилия', [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],  [30,1,2018], 500);
 
         it("If PIN < 4 no state change", function () {
             atm.pushCard(card);
@@ -117,7 +117,7 @@ describe("Core Tests", function () {
 
 
     describe("State3", function () {
-        var card = new CardDataModel();
+        var card = new CardDataModel('Имя Фамилия', [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],  [30,1,2018], 500);
         it("After cash entered - give cash end return in status 1 after 1 second", function () {
             atm.pushCard(card);
             atm.onNumBtnClick(1);
