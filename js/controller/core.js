@@ -90,6 +90,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                             var cashOut = cashModule.getCash(cashModule.getNominals()[0]);
                             navigation.showMessage(STATE_TEXT.ALL_OK);
                             cashOutModule.showMoney(cashOut);
+                            cardModule.setNewBalance(cashOut[0]);
                             setTimeout(function () {
                                 currectState = stateWait;
                                 currectState.init();
@@ -109,6 +110,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                             var cashOut = cashModule.getCash(cashModule.getNominals()[1]);
                             navigation.showMessage(STATE_TEXT.ALL_OK);
                             cashOutModule.showMoney(cashOut);
+                            cardModule.setNewBalance(cashOut[0]);
                             setTimeout(function () {
                                 currectState = stateWait;
                                 currectState.init();
@@ -149,7 +151,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
                 if (pin.length === 4) {
                     var chkPin = cardModule.checkPin(pin);
-                    var chkDate = true;//cardModule.chkDate()             CardModule return true/false in method chekDate
+                    var chkDate = cardModule.checkDate();
 
                     if (chkPin && chkDate) {
                         currectState = currectState.getNext();
@@ -161,7 +163,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         setTimeout(currectState.init, timeOut);
                     } else if (!chkDate) {
                         navigation.showMessage(STATE_TEXT.DATE_ERROR);
-                        setTimeout(self.pushCard(0), timeOut);
+                        setTimeout(function () {self.pushCard(0)}, timeOut);
                     }
                 }
             },
@@ -200,6 +202,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         var cashOut = cashModule.getCash(+cash);
                         navigation.showMessage(STATE_TEXT.ALL_OK);
                         cashOutModule.showMoney(cashOut);
+                        cardModule.setNewBalance(+cash);
                         setTimeout(function () {
                             currectState = stateWait;
                             currectState.init();

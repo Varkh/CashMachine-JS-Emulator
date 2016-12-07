@@ -67,7 +67,7 @@ function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
      * Metod: sets new ballance
      */
     this.setBalance = function (newBallance) {
-        this.ballance = newBallance;
+        this._ballance = newBallance;
     };
 }
     /**
@@ -87,13 +87,17 @@ function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
 
 CardDataModel.prototype.isNotExpired = function () {
     var now = new Date();
-    if(now.getFullYear() <= this._expirationDate[2]
-        && now.getMonth() < this._expirationDate[1]
-        && now.getDate() < this._expirationDate[0]) {
+    if(now.getFullYear() < this._expirationDate[2]) {
         return true;
-    } else {
-        return false;
-    }
+    } else if (now.getFullYear() == this._expirationDate[2]) {
+        if (now.getMonth()+1 < this._expirationDate[1]) {
+            return true;
+        } else if (now.getMonth()+1 == this._expirationDate[1]) {
+            if (now.getDate() <= this._expirationDate[0]) {
+                return true;
+            } else {return false};
+        } else return false;
+    } else {return false};
 };
 
 /*CardDataModel.prototype.accessGranted = function (inputPin) {

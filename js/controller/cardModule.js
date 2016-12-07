@@ -80,7 +80,7 @@ function CardModule() {
      * param card, givenSum
      */
     this.setNewBalance = function (givenSum) {
-        var finalSum = card.getBallance - givenSum;
+        var finalSum = card.getBallance() - givenSum;
         card.setBalance(finalSum);
     };
 
