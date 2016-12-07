@@ -32,6 +32,7 @@ function CardLayoutView() {
         card.style.height = "90px";
         card.style.marginBottom = "10px";
         card.style.lineHeight = "85px";
+        card.onmousedown = dragOnMouseDown;
 
         document.body.appendChild(card);
         draggMe.push(card);
@@ -70,49 +71,47 @@ console.log(draggMe);
 var newCard = new CardLayoutView();
 
 
-//code for dragging (from LearnJavascript)
-for (var i = 0; i < draggMe.length; i++) {
-    console.log(i);
-    draggMe[i].onmousedown = function(event) {
-        var that = this;
-        that.style.position = 'absolute';
-        moveAt(event);
-        document.body.appendChild(that);
-        that.style.zIndex = 1000;
+draggME.onmousedown = dragOnMouseDown;
 
-        function moveAt(event2) {
-            that.style.left = event2.pageX - that.offsetWidth / 2 + 'px';
-            that.style.top = event2.pageY - that.offsetHeight / 2 + 'px';
+function dragOnMouseDown(event) {
+    var that = this;
+    that.style.position = 'absolute';
+    moveAt(event);
+    document.body.appendChild(that);
+    that.style.zIndex = 1000;
+
+    function moveAt(event2) {
+        that.style.left = event2.pageX - that.offsetWidth / 2 + 'px';
+        that.style.top = event2.pageY - that.offsetHeight / 2 + 'px';
+    }
+
+    document.onmousemove = function(event3) {
+        moveAt(event3);
+
+        //card insertion code start
+        var target = that.getBoundingClientRect();
+        var point = document.getElementById('receiver').getBoundingClientRect();
+
+
+        function overlap(tar) {
+            return !(
+                tar.top > point.bottom ||
+                tar.right < point.left ||
+                tar.bottom < point.top ||
+                tar.left > point.right
+            );
         }
 
-        document.onmousemove = function(event3) {
-            moveAt(event3);
-            
-            //card insertion code start
-            var target = that.getBoundingClientRect();
-            var point = document.getElementById('receiver').getBoundingClientRect();
-            
-            
-            function overlap(tar) {
-                return !(
-                    tar.top > point.bottom ||
-                    tar.right < point.left ||
-                    tar.bottom < point.top ||
-                    tar.left > point.right
-                    );
-            }
-            
-            if (overlap(target)) {
-                document.body.removeChild(that);
-                console.log("card inserted");
-            }
-            //card insertion code end
-
-        };
-
-        that.onmouseup = function() {
-            document.onmousemove = null;
-            that.onmouseup = null;
+        if (overlap(target)) {
+            document.body.removeChild(that);
+            console.log("card inserted");
         }
+        //card insertion code end
+
+    };
+
+    that.onmouseup = function() {
+        document.onmousemove = null;
+        that.onmouseup = null;
     }
 }
