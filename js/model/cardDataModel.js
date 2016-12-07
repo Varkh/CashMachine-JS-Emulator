@@ -44,6 +44,7 @@ function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
      * returns boolean
      */
     this.checkCardPin = function (inputPin) {
+
         for (var i = 0; i < inputPin.length; i++) {
             if (inputPin[i] !== pin[i]) {
                 return false
@@ -87,16 +88,9 @@ function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
 
 CardDataModel.prototype.isNotExpired = function () {
     var now = new Date();
-    if(now.getFullYear() < this._expirationDate[2]) {
+    var expDate = new Date (this._expirationDate[2],this._expirationDate[1]-1,this._expirationDate[0])
+    if(now.getTime() < expDate.getTime()) {
         return true;
-    } else if (now.getFullYear() == this._expirationDate[2]) {
-        if (now.getMonth()+1 < this._expirationDate[1]) {
-            return true;
-        } else if (now.getMonth()+1 == this._expirationDate[1]) {
-            if (now.getDate() <= this._expirationDate[0]) {
-                return true;
-            } else {return false};
-        } else return false;
     } else {return false};
 };
 

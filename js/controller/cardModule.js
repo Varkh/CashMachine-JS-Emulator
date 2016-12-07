@@ -91,4 +91,8 @@ function CardModule() {
         }
         return isAutorized;
     }
+
+    this.changePin = function (pin) {
+        card.setPin(pin);
+    }
 }

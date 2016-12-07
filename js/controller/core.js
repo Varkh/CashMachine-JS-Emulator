@@ -16,7 +16,8 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
         ENTER_SUM: 'Enter Cash',
         PIN_ERRROR: 'Pin is incorrect, try again.',
         DATE_ERROR: 'Card is out to date!',
-        ALL_OK: "Take your money! You WIN."
+        ALL_OK: "Take your money! You WIN.",
+        CHANGE_PIN: 'Change PIN'
     };
 
     var self = this;
@@ -68,6 +69,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
             init: function () {
                navigation.createMenu({
+                     3:'Change PIN',
                      4:'View balanse',
                      5:cashModule.getNominals()[0],
                      6:cashModule.getNominals()[1],
@@ -81,6 +83,28 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
             selectMenuBtnClick:function (value) {
                 switch (value) {
+                    case '3':
+
+                        var pin1=[];
+                        navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
+                        self.onNumBtnClick=function (button) {
+                            pin1.push(parseInt(button));
+                            navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
+
+                            if (pin1.length===4) {
+                                cardModule.changePin(pin1);
+                                self.onNumBtnClick = function (button) {
+                                    currectState.onNumBtnClickAction(button);
+                                };
+
+                                currectState = statePin;
+                                currectState.init();
+                                pin=[];
+                                pin1=[];
+                            }
+                        };
+
+                        break;
                     case '4':
                         navigation.showMessage(cardModule.viewBallance());
                         navigation.createMenu(['','','','','','','','Back'],true)
@@ -142,7 +166,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
             numBtnClick: function (button) {
 
                 if (pin.length < 4) {
-                    pin.push(+button);
+                    pin.push(parseInt(button));
                 }
                 navigation.showInput(STATE_TEXT.CARD_INSERTED, pin.join(''), 1);
             },
@@ -191,7 +215,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
             submitBtnClick: function () {
                 if (cash.length > 0) {
 
-                    var isBalanse = cardModule.isEnoughMoney(+cash);
+                    var isBalanse = cardModule.isEnoughMoney(parseInt(cash));
 
                     if (!isBalanse) {
 
@@ -199,10 +223,10 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                     }
 
                     try {
-                        var cashOut = cashModule.getCash(+cash);
+                        var cashOut = cashModule.getCash(parseInt(cash));
                         navigation.showMessage(STATE_TEXT.ALL_OK);
                         cashOutModule.showMoney(cashOut);
-                        cardModule.setNewBalance(+cash);
+                        cardModule.setNewBalance(parseInt(cash));
                         setTimeout(function () {
                             currectState = stateWait;
                             currectState.init();
@@ -244,7 +268,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
             submitBtnClick: function () {
                 if (cash.length > 0) {
 
-                    var isBalanse = cardModule.isEnoughMoney(+cash);
+                    var isBalanse = cardModule.isEnoughMoney(parseInt(cash));
 
                     if (!isBalanse) {
 
@@ -252,7 +276,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                     }
 
                     try {
-                        var cashOut = cashModule.getCash(+cash);
+                        var cashOut = cashModule.getCash(parseInt(cash));
                         navigation.showMessage(STATE_TEXT.ALL_OK);
                         cashOutModule.showMoney(cashOut);
                         setTimeout(function () {
