@@ -6,39 +6,38 @@
  * Used in CardModule
  *
  * @constructor
- */
-function CardDataModel() {
+**/
+function CardDataModel(holderName, cardNumber, expirationDate, ballance) {
     /**
      * Pin Code
      * should be changed to hash instead
      * or used only for card creation
      */
     var pin = [1,1,1,1];
-
     /**
      * Amount of money on card
      */
-    var ballance = 500;
+
+    this._ballance = ballance;
 
     /**
      * Name of person who own card
      */
-    this._holderName = 'Вася Пупкин';
+    this._holderName = holderName;
 
-    this._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    this._cardNumber = cardNumber;
 
     /**
      * ExpirationDate
      * Not allowed to use card with expired date
      */
-    this._expirationDate = [30,1,2018];
+    this._expirationDate = expirationDate;
 
-    /**
-     * CardType: debit/credit
-     * credit card allows to have negative balance
-     */
+//     /**
+//      * CardType: debit/credit
+//      * credit card allows to have negative balance
+//      */
     this._cardType = CardDataModel.CARD_TYPE.DEBIT;
-
     /**
      * Metod: check pin
      * this metod allow to check input pin and real pin of this card

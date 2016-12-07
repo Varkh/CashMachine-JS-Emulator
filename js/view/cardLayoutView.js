@@ -10,7 +10,7 @@ function CardLayoutView() {
         if (e.keyCode == 13) {
             var newcard = new CardDataModel();
             newcard._holderName = this.value;
-            $('div')
+            $('<div>')
                 .addClass("new-card")
                 .data(newcard)
                 .appendTo($nameInput.parent());
