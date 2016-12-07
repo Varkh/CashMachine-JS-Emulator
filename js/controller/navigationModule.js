@@ -9,6 +9,10 @@ function NavigationModule(displayView) {
         displayView.showInput(message,text,hide);
     };
 
+    this.createMenu = function (val,append) {
+        displayView.createMenu(val,append)
+    }
+
 
     function menuInitialization() {
        return new NavigationMenuModel("Hello");
