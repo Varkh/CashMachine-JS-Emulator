@@ -13,7 +13,7 @@ p {
 }
 .wrapper {
 	display: inline-block;
-	width: 40%;
+	width: 100%;
 	position: relative;
 }
  
@@ -105,23 +105,69 @@ p {
 }
 
 .wallet {
-	margin-left: 2px;
-	margin-top:  100px;
 	position: absolute;
-	padding-left: 510px;
+	left: 70%;
+	top: 60%;
+	width: 20%;
+	text-align: left;
 }
 
 .name-input {
 	display: none;
+	margin-left: auto;
+	margin-top: 8px;
 }
 
 .new-card {
-	margin-top: 5px;
+	margin-top: 8px;
 	margin-left: 5px;
 	height: 200px;
-	width: 300px;
-	background-color: saddlebrown;
-	position: relative;
+	width: 320px;
+	background-color: #a0a0a0;
+	border-radius: 8px;
+	/*background-image: url(../img/card.png);
+	background-position: center;*/
+}
+
+.holder-name {
+	position: absolute;
+	height: 200px;
+	width: 320px;
+	margin-top: 150px;
+	margin-left: 30px;
+	color: gold;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+}
+
+.card-number {
+	position: absolute;
+	height: 200px;
+	width: 320px;
+	margin-top: 110px;
+	margin-left: 30px;
+	color: gold;
+	letter-spacing: 5px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+}
+
+.exp-date {
+	position: absolute;
+	height: 200px;
+	width: 320px;
+	margin-top: 135px;
+	margin-left: 140px;
+	color: gold;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.add-card-button {
+	position: inherit;
+	width: 80px;
+	text-align: center;
+	margin-left: auto;
 }
 
 .ok-button {

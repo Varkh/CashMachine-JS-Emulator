@@ -4,22 +4,51 @@ function CardLayoutView() {
     var $nameInput = $(".name-input");
     $(".add-card-button").click(function () {
         $nameInput.toggle();
-       // $(".ok-button").toggle();
+        $(".ok-button").toggle();
     });
-    $nameInput.keydown(function (e) {
-        if (e.keyCode == 13) {
+    $(".ok-button").click(function () {
             var newcard = new CardDataModel();
-            newcard._holderName = this.value;
+            newcard._holderName = $nameInput[0].value;
+            newcard._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            newcard._expirationDate = [1,10,18];
+            var holderName = $('<p>')
+                .addClass("holder-name")
+                .append(newcard._holderName);
+            var cardNumber = $('<p>')
+                .addClass("card-number")
+                .append(newcard._cardNumber.join(""));
+            var expDate = $('<p>')
+                .addClass("exp-date")
+                .append(newcard._expirationDate[0]
+                    + "/" + newcard._expirationDate[1]
+                    + "/" + newcard._expirationDate[2]);
             $('<div>')
                 .addClass("new-card")
                 .data(newcard)
+                .append(holderName)
+                .append(cardNumber)
+                .append(expDate)
                 .appendTo($nameInput.parent());
-        }
-    });    
+            $nameInput.toggle();
+            $nameInput[0].value = "";
+            $(".ok-button").toggle();
+    });
 }
 
+/*function visualCardNumber(n) {
+    for (var i = 0; i < n.length; i++){
+        var res = "";
+        if (i = 4 || i = 8 || i = 12){
+            res = res + " " + n[i];
+        } else {
+        res = res + n[i];
+        }
+        return res;
+    }
+}*/
+
 //code for dragging (from LearnJavascript)
-var draggME = document.getElementById('draggME');
+var draggME = document.getElementsByClassName('draggME');
 
 draggME.onmousedown = function(event) {
     draggME.style.position = 'absolute';
