@@ -9,8 +9,8 @@
 
 function CardModule() {
     document.body.addEventListener("cart-inserted", function(e) {
-        var cardParams = JSON.parse(e.detail);
-        core.pushCard(new CardDataModel(cardParams._holderName, cardParams._cardNumber, cardParams._expirationDate, cardParams._ballance));
+        var cardParams = e.detail;
+        core.pushCard(e.detail);
     });
     var core = null;
 
@@ -29,6 +29,11 @@ function CardModule() {
     this.setCard = function (usingCard) {
         card = usingCard;
     };
+
+    this.returnCard = function () {
+        return card;
+    };
+
     /**
      * Metod: check if pin is correct and expired date of this card not reached
      * input param: card, PIN
@@ -68,7 +73,7 @@ function CardModule() {
      * return: boolean
      */
     this.isEnoughMoney = function (sum) {
-        if(card.getBallance() > sum){
+        if(card.getBallance() >= sum){
             return true;
         } else {
             return false;
@@ -80,7 +85,7 @@ function CardModule() {
      * param card, givenSum
      */
     this.setNewBalance = function (givenSum) {
-        var finalSum = card.getBallance - givenSum;
+        var finalSum = card.getBallance() - givenSum;
         card.setBalance(finalSum);
     };
 
@@ -90,5 +95,9 @@ function CardModule() {
             isAutorized = true;
         }
         return isAutorized;
+    }
+
+    this.changePin = function (pin) {
+        card.setPin(pin);
     }
 }
