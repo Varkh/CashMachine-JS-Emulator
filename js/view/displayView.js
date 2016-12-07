@@ -30,29 +30,29 @@ function DisplayView() {
 		var table=$('<TABLE>');
 
 		for (var i=0;i<4;i++) {
-			var tr=($('<tr>'));
-			tr.css('height','30px');
-			tr.append($('<td>'));
-			tr.append($('<td>'));
+			var tr=($('<tr>'))
+			.append($('<td>'))
+			.append($('<td>'));
 			table.append(tr)
 		}
-		table.css('width','100%');
-        table.css('margin-top','18px');
 
-		for (var i=0;i<4;i++) {
+		table.find('td:even').each(
+			function (i) {
+				if (val instanceof window.Array) {
+					$(this).text(val[i]);
+				}else {
+					$(this).text(val[i+1]);
+				}
+			});
 
-			if (val instanceof window.Array) {
-				table.find('td:even').eq(i).text(val[i]);
-				table.find('td:odd').eq(i).text(val[i+4]);
-			} else {
-				if (!val[i+1]) val[i+1]='';
-				table.find('td:even').eq(i).text(val[i+1]);
-				table.find('td:odd').eq(i).text(val[i+5]);
-			}
-		}
-
-		table.find('td:even').css('text-align','left');
-		table.find('td:odd').css('text-align','right');
+		table.find('td:odd').each(
+			function (i) {
+				if (val instanceof window.Array) {
+					$(this).text(val[i+4]);
+				}else {
+					$(this).text(val[i+5]);
+				}
+			});
 
 		if (!append) {
 			$display.html(table);
