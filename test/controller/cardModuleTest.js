@@ -12,12 +12,12 @@ describe("Card Module Tests", function () {
         });
 
         it("check default", function () {
-            assert.isFalse(instance.readCard(card));
+            assert.isTrue(instance.readCard(card));
         });
 
         it("check if user can continue with this card", function () {
             var p = [1,1,1,1];
-            assert.isFalse(instance.checkDate() == instance.checkPin(p));
+            assert.isTrue(instance.checkDate() == instance.checkPin(p));
         });
     });
 });
