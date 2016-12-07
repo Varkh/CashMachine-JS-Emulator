@@ -28,6 +28,7 @@ function DisplayView() {
 	
 	this.createMenu=function (val,append) {
 		var table=$('<TABLE>');
+
 		for (var i=0;i<4;i++) {
 			var tr=($('<tr>'));
 			tr.css('height','30px');
@@ -39,8 +40,15 @@ function DisplayView() {
         table.css('margin-top','18px');
 
 		for (var i=0;i<4;i++) {
-			table.find('td:even').eq(i).text(val[i]);
-			table.find('td:odd').eq(i).text(val[i+4]);
+
+			if (val instanceof window.Array) {
+				table.find('td:even').eq(i).text(val[i]);
+				table.find('td:odd').eq(i).text(val[i+4]);
+			} else {
+				if (!val[i+1]) val[i+1]='';
+				table.find('td:even').eq(i).text(val[i+1]);
+				table.find('td:odd').eq(i).text(val[i+5]);
+			}
 		}
 
 		table.find('td:even').css('text-align','left');
@@ -51,11 +59,6 @@ function DisplayView() {
 		} else {
 			table.css('margin-top','0px');$display.append(table)
 		}
-		/*var div1=$('<DIV>',{
-		});
-		div1.text(val1)*/
-
-
 	}
 
 	buttonInitialization();

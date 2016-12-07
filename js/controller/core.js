@@ -30,6 +30,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
     var pin = [];
     var cash = '';
+    var timeOut=2500;
 
     function onCardPushHandler(cardData) {
         if (cardData) {
@@ -64,10 +65,17 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
         stateMenu = new State("MENU", modules, null, {
             cardPush: onCardPushHandler,
-            init: function () {
-                navigation.createMenu(['','','','View balanse',cashModule.getNominals()[0],cashModule.getNominals()[1],'Enter Cash','Back',],0)
 
+            init: function () {
+               navigation.createMenu({
+                     4:'View balanse',
+                     5:cashModule.getNominals()[0],
+                     6:cashModule.getNominals()[1],
+                     7:'Enter Cash',
+                     8:'Back'
+                 },0)
             },
+
             numBtnClick:function () {
             },
 
@@ -85,14 +93,14 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                             setTimeout(function () {
                                 currectState = stateWait;
                                 currectState.init();
-                            }, 1000);
+                            }, timeOut);
 
                         } catch (e) {
                             cash = '';
                             navigation.showMessage(e);
                             setTimeout(function () {
                                 currectState.init();
-                            }, 1000);
+                            }, timeOut);
                         }
                         break;
 
@@ -104,14 +112,14 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                             setTimeout(function () {
                                 currectState = stateWait;
                                 currectState.init();
-                            }, 1000);
+                            }, timeOut);
 
                         } catch (e) {
                             cash = '';
                             navigation.showMessage(e);
                             setTimeout(function () {
                                 currectState.init();
-                            }, 1000);
+                            }, timeOut);
                         }
                         break;
                     case '8':
@@ -150,10 +158,10 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                     } else if (!chkPin) {
                         navigation.showMessage(STATE_TEXT.PIN_ERRROR);
                         pin = [];
-                        setTimeout(currectState.init, 1000);
+                        setTimeout(currectState.init, timeOut);
                     } else if (!chkDate) {
                         navigation.showMessage(STATE_TEXT.DATE_ERROR);
-                        setTimeout(self.pushCard(0), 1000);
+                        setTimeout(self.pushCard(0), timeOut);
                     }
                 }
             },
@@ -185,7 +193,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
                     if (!isBalanse) {
 
-                        setTimeout(currectState.init, 1000);
+                        setTimeout(currectState.init, timeOut);
                     }
 
                     try {
@@ -195,14 +203,14 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         setTimeout(function () {
                             currectState = stateWait;
                             currectState.init();
-                        }, 1000);
+                        }, timeOut);
 
                     } catch (e) {
                         cash = '';
                         navigation.showMessage(e);
                         setTimeout(function () {
                             currectState.init();
-                        }, 1000);
+                        }, timeOut);
                     }
                 }
             },
@@ -237,7 +245,7 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
 
                     if (!isBalanse) {
 
-                        setTimeout(currectState.init, 1000);
+                        setTimeout(currectState.init, timeOut);
                     }
 
                     try {
@@ -247,14 +255,14 @@ function Core(cashModule, cardModule, navigation,cashOutModule) {
                         setTimeout(function () {
                             currectState = stateWait;
                             currectState.init();
-                        }, 1000);
+                        }, timeOut);
 
                     } catch (e) {
                         cash = '';
                         navigation.showMessage(e);
                         setTimeout(function () {
                             currectState.init();
-                        }, 1000);
+                        }, timeOut);
                     }
                 }
             },
