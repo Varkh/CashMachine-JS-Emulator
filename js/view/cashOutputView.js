@@ -2,9 +2,9 @@
 function CashOutputView() {
     var cashOut=$('#text');
     this.showOutCash = function (cash) {
-        cashOut.val(cash);
+        cashOut.append(cash);
         setTimeout( function () {
-            cashOut.val('')
-        },1000);
+            cashOut.empty();
+        },3000);
     }
 }
