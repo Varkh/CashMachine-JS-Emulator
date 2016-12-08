@@ -32,7 +32,8 @@ function CardModule() {
 
     this.ejectCard = function () {
         if(card) {
-            var event = new CustomEvent('card-ejected', {'detail':card});
+            var event = document.createEvent('CustomEvent');
+            event.initCustomEvent('card-ejected',false,false,card);
             card=null;
             console.log(event)
         }
