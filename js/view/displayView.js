@@ -25,6 +25,41 @@ function DisplayView() {
 			.prop('readonly', true)
 			.prop('type', hide ? 'password' : 'text');
 	}
+	
+	this.createMenu=function (val,append) {
+		var table=$('<TABLE>');
+
+		for (var i=0;i<4;i++) {
+			var tr=($('<tr>'))
+			.append($('<td>'))
+			.append($('<td>'));
+			table.append(tr)
+		}
+
+		table.find('td:even').each(
+			function (i) {
+				if (val instanceof window.Array) {
+					$(this).text(val[i]);
+				}else {
+					$(this).text(val[i+1]);
+				}
+			});
+
+		table.find('td:odd').each(
+			function (i) {
+				if (val instanceof window.Array) {
+					$(this).text(val[i+4]);
+				}else {
+					$(this).text(val[i+5]);
+				}
+			});
+
+		if (!append) {
+			$display.html(table);
+		} else {
+			table.css('margin-top','0px');$display.append(table)
+		}
+	}
 
 	buttonInitialization();
 
@@ -36,7 +71,7 @@ function DisplayView() {
 	    	displayButtons[i].textContent = i + 1;
 	    	displayButtons[i].onclick = function(event) {
 				var entered = event.target.textContent;
-				displaySpace.textContent = entered + " option selected";
+				atm.selectMenuBtnClickAction(entered);
 			}
 		}
 	}

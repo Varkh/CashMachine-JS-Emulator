@@ -72,5 +72,14 @@ function CashModule() {
         }
         setConst();
     }
+
+    this.getNominals = function () {
+        var returnBills=[];
+        for (var i = 0; i < bills.length; i++) {
+
+            if (bills[i].number !==0) returnBills.push(bills[i].nominal);
+        }
+        return returnBills;
+    }
 }
 

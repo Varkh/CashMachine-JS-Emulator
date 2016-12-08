@@ -22,6 +22,8 @@ function State(name, modules, nextState, handlers) {
 
     this.onCardPush = handlers.cardPush || defaultAction;
 
+    this.onSelectMenuBtnClickAction=handlers.selectMenuBtnClick || defaultAction;
+
     function defaultAction() {
 
     }
