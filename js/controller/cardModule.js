@@ -10,7 +10,7 @@
 function CardModule() {
     document.body.addEventListener("cart-inserted", function(e) {
         var cardParams = e.detail;
-        core.pushCard(e.detail);
+        if (!card) core.pushCard(e.detail);
     });
     var core = null;
 
@@ -29,6 +29,16 @@ function CardModule() {
     this.setCard = function (usingCard) {
         card = usingCard;
     };
+
+    this.ejectCard = function () {
+        if(card) {
+            var event = document.createEvent('CustomEvent');
+            event.initCustomEvent('card-ejected',false,false,card);
+            card=null;
+            console.log(event)
+        }
+
+    }
 
     this.returnCard = function () {
         return card;
