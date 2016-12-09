@@ -1,5 +1,5 @@
 "use strict";
-var card1=new CardDataModel('Петров Иван', [1,1,2,4,6,7,8,9,3,4,6,7,8,9,2,0],  [30,1,2018], 500);
+var cards=[];
 $(function () {
     var displayView = new DisplayView();
     var navigation = new NavigationModule(displayView);
