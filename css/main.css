@@ -122,7 +122,7 @@ p {
 .name-input {
 	display: none;
 	margin-left: auto;
-	margin-top: 8px;
+	margin-top: 25px;
 
 }
 
@@ -198,6 +198,7 @@ p {
 
 .ok-button {
 	display: none;
+	margin-top: 5px;
 }
 
 .addedInput{
