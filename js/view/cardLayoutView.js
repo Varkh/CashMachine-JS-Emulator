@@ -77,6 +77,13 @@ var DragManager = new function() {
   function onMouseUp(e) {
     if (dragObject.avatar) { 
       finishDrag(e);
+        for (var i=0;i<cards.length;i++){
+            if (cards[i]._holderName==$(e.target).children('.holder-name').text()){
+                var event = new CustomEvent('cart-inserted', {'detail':cards[i]});
+                document.body.dispatchEvent(event);
+            }
+
+        }
     }
     dragObject = {};
   }
