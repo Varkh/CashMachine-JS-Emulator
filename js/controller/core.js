@@ -154,7 +154,7 @@ function Core(cashModule, cardModule, navigation, cashOutModule) {
 
             cancelBtnClick: function () {
                 pin = [];
-                this.NumBtnClick = function (button) {
+                this.onNumBtnClickAction = function () {
                 };
                 self.pushCard(0);
                 currectState = stateWait;
@@ -166,19 +166,32 @@ function Core(cashModule, cardModule, navigation, cashOutModule) {
                     case '3':
                         var pin1 = [];
                         navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
-                        this.NumBtnClick = function (button) {
-                            pin1.push(parseInt(button));
-                            navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
 
+                        this.onNumBtnClickAction = function (button) {
+                            if (pin1.length < 4) {
+                                pin1.push(parseInt(button));
+                                navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
+                            }
+                        };
+
+                        this.onSubmitBtnClickAction=function () {
                             if (pin1.length === 4) {
                                 cardModule.changePin(pin1);
-                                this.NumBtnClick = function (button) {
+                                this.onNumBtnClickAction = function () {
+                                };
+                                this.onClearBtnClickAction=function () {
+                                };
+                                this.onSubmitBtnClickAction=function () {
                                 };
                                 currectState = statePin;
                                 currectState.init();
                                 pin = [];
-                                pin1 = [];
                             }
+                        };
+
+                        this.onClearBtnClickAction=function () {
+                            pin1=[];
+                            navigation.showInput(STATE_TEXT.CHANGE_PIN, pin1.join(''), 1);
                         };
                         break;
 
