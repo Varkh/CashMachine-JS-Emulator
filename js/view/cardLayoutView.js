@@ -2,51 +2,31 @@
 
 function CardLayoutView() {
     var $nameInput = $(".name-input");
+    var $balInput = $(".bal-input");
+    var $dateInput = $(".date-input");
+    var $pinInput = $(".pin-input");
+    var $okButton = $(".ok-button");
     $(".add-card-button").click(function () {
         $nameInput.toggle();
-        $(".ok-button").toggle();
+        $balInput.toggle();
+        $dateInput.toggle();
+        $pinInput.toggle();
+        $okButton.toggle();
     });
     $(".ok-button").click(function () {
-            var newcard = new CardDataModel();
-            newcard._holderName = $nameInput[0].value;
-            newcard._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-            newcard._expirationDate = [18,18,18];
-            var holderName = $('<p>')
-                .addClass("holder-name")
-                .append(newcard._holderName);
-            var cardNumber = $('<p>')
-                .addClass("card-number")
-                .append(newcard._cardNumber.join(""));
-            var expDate = $('<p>')
-                .addClass("exp-date")
-                .append(newcard._expirationDate[0]
-                    + "/" + newcard._expirationDate[1]
-                    + "/" + newcard._expirationDate[2]);
-            $('<div>')
-                .addClass("new-card")
-                .data(newcard)
-                .append(holderName)
-                .append(cardNumber)
-                .append(expDate)
-                .appendTo($nameInput.parent());
-                
+
+        var nextCard = new CardCreationForm($nameInput,$dateInput,$balInput,$pinInput);
             $nameInput.toggle();
             $nameInput[0].value = "";
-            $(".ok-button").toggle();
+            $balInput.toggle();
+            $balInput[0].value = "";
+            $dateInput.toggle();
+            $dateInput[0].value = "";
+            $pinInput.toggle();
+            $pinInput[0].value = "";
+            $okButton.toggle();
     });
 }
-
-/*function visualCardNumber(n) {
-    for (var i = 0; i < n.length; i++){
-        var res = "";
-        if (i = 4 || i = 8 || i = 12){
-            res = res + " " + n[i];
-        } else {
-        res = res + n[i];
-        }
-        return res;
-    }
-}*/
 
 //code for dragging (from LearnJavascript)
 var DragManager = new function() {
