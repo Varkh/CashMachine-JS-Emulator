@@ -23,6 +23,7 @@
     <script defer src="./js/view/displayView.js"></script>
     <script defer src="./js/view/cardLayoutView.js"></script>
     <script defer src="js/view/cashOutputView.js"></script>
+    <script defer src="js/view/cardCreationForm.js"></script>
 
     <script defer src="./js/main.js"></script>
 </head>
@@ -73,7 +74,15 @@
 <div class = "wallet">
     <button type="button" class = 'add-card-button'>Add card</button>
     <br>
-    <input placeholder="Enter the name of cardholder" class = "name-input"><button class = "ok-button">←</button>
+    <input placeholder="Enter the name of cardholder" class = "name-input">
+
+    <input placeholder="Enter the ballance" class = "bal-input">
+
+    <input placeholder="Enter the expiration date" class = "date-input">
+
+    <input placeholder="Enter the PIN" class = "pin-input">
+
+    <button class = "ok-button">Submit</button>
 </div>
 <div id="draggME">
   draggME

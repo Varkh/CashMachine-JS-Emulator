@@ -4,7 +4,9 @@ function CardLayoutView() {
     var $nameInput = $(".name-input");
     $(".add-card-button").click(function () {
         $nameInput.toggle();
-        $(".ok-button").toggle();
+        $(".bal-input").toggle();
+        $(".date-button").toggle();
+        $(".pin-button").toggle();
     });
     $(".ok-button").click(function () {
             var newcard = new CardDataModel();
