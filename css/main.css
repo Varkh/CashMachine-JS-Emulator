@@ -34,7 +34,13 @@ p {
 }
 .display-area, .text-area, .buttons {
 	display: inline-block;
+
 }
+
+#text{
+	background-color: white;
+}
+
 .display {
 	float: left;
 	width: 240px;

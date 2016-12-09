@@ -12,7 +12,7 @@ function CardLayoutView() {
             var newcard = new CardDataModel();
             newcard._holderName = $nameInput[0].value;
             newcard._cardNumber = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-            newcard._expirationDate = [1,10,18];
+            newcard._expirationDate = [18,18,18];
             var holderName = $('<p>')
                 .addClass("holder-name")
                 .append(newcard._holderName);
@@ -31,6 +31,7 @@ function CardLayoutView() {
                 .append(cardNumber)
                 .append(expDate)
                 .appendTo($nameInput.parent());
+                
             $nameInput.toggle();
             $nameInput[0].value = "";
             $(".ok-button").toggle();
@@ -50,46 +51,140 @@ function CardLayoutView() {
 }*/
 
 //code for dragging (from LearnJavascript)
-var draggME = document.getElementsByClassName('draggME');
+var DragManager = new function() {
+  var dragObject = {};
+  var self = this;
+  function onMouseDown(e) {
+    if (e.which != 1) return;
+    var elem = e.target.closest('.new-card');
+    if (!elem) return;
+    dragObject.elem = elem;
 
-draggME.onmousedown = function(event) {
-    draggME.style.position = 'absolute';
-    moveAt(event);
-    document.body.appendChild(draggME);
-    draggME.style.zIndex = 1000;
+    dragObject.downX = e.pageX;
+    dragObject.downY = e.pageY;
 
-    function moveAt(event2) {
-        draggME.style.left = event2.pageX - draggME.offsetWidth / 2 + 'px';
-        draggME.style.top = event2.pageY - draggME.offsetHeight / 2 + 'px';
+    return false;
+  }
+
+  function onMouseMove(e) {
+    if (!dragObject.elem) return; 
+
+    if (!dragObject.avatar) { 
+      var moveX = e.pageX - dragObject.downX;
+      var moveY = e.pageY - dragObject.downY;
+
+      if (Math.abs(moveX) < 3 && Math.abs(moveY) < 3) {
+        return;
+      }
+
+      dragObject.avatar = createAvatar(e); 
+      if (!dragObject.avatar) { 
+        dragObject = {};
+        return;
+      }
+
+      var coords = getCoords(dragObject.avatar);
+      dragObject.shiftX = dragObject.downX - coords.left;
+      dragObject.shiftY = dragObject.downY - coords.top;
+
+      startDrag(e); 
     }
 
-    document.onmousemove = function(event3) {
-        moveAt(event3);
-            
-            //card insertion code start
-            var target = draggME.getBoundingClientRect();
-            var point = document.getElementById('receiver').getBoundingClientRect();
-            
-            
-            function overlap(tar) {
-                return !(
-                tar.top > point.bottom ||
-                tar.right < point.left ||
-                tar.bottom < point.top ||
-                tar.left > point.right
-                );
-            }
-            
-            if (overlap(target)) {
-                document.body.removeChild(draggME);
-                console.log("card inserted");
-            }
-            //card insertion code end
+    dragObject.avatar.style.left = e.pageX - dragObject.shiftX + 'px';
+    dragObject.avatar.style.top = e.pageY - dragObject.shiftY + 'px';
 
+    return false;
+  }
+
+  function onMouseUp(e) {
+    if (dragObject.avatar) { 
+      finishDrag(e);
+    }
+    dragObject = {};
+  }
+
+  function finishDrag(e) {
+    var dropElem = findDroppable(e);
+
+    if (!dropElem) {
+      self.onDragCancel(dragObject);
+    } else {
+      self.onDragEnd(dragObject, dropElem);
+    }
+  }
+
+  function createAvatar(e) {
+    var avatar = dragObject.elem;
+    var old = {
+      parent: avatar.parentNode,
+      nextSibling: avatar.nextSibling,
+      position: avatar.position || '',
+      left: avatar.left || '',
+      top: avatar.top || '',
+      zIndex: avatar.zIndex || ''
     };
 
-    draggME.onmouseup = function() {
-        document.onmousemove = null;
-        draggME.onmouseup = null;
+    avatar.rollback = function() {
+      old.parent.insertBefore(avatar, old.nextSibling);
+      avatar.style.position = old.position;
+      avatar.style.left = old.left;
+      avatar.style.top = old.top;
+      avatar.style.zIndex = old.zIndex
+    };
+
+    return avatar;
+  }
+
+  function startDrag(e) {
+    var avatar = dragObject.avatar;
+
+    document.body.appendChild(avatar);
+    avatar.style.zIndex = 9999;
+    avatar.style.position = 'absolute';
+  }
+
+  function findDroppable(event) {
+    dragObject.avatar.hidden = true;
+
+    var elem = document.elementFromPoint(event.clientX, event.clientY);
+
+    dragObject.avatar.hidden = false;
+
+    if (elem == null) {
+      return null;
     }
+
+    return elem.closest('.droppable');
+  }
+
+  document.onmousemove = onMouseMove;
+  document.onmouseup = onMouseUp;
+  document.onmousedown = onMouseDown;
+
+  this.onDragEnd = function(dragObject, dropElem) {};
+  this.onDragCancel = function(dragObject) {};
+
 };
+
+
+function getCoords(elem) { 
+  var box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset
+  };
+}
+
+DragManager.onDragCancel = function(dragObject) {
+  dragObject.avatar.rollback();
+};
+
+DragManager.onDragEnd = function(dragObject, dropElem) {
+  dragObject.elem.style.display = 'none';
+};
+
+
+
+
+
