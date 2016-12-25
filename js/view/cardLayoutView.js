@@ -26,6 +26,10 @@ function CardLayoutView() {
             $pinInput[0].value = "";
             $okButton.toggle();
     });
+    document.body.addEventListener("card-ejected", function(e) {
+        var cardParams = e.detail;
+        if (cardParams) insertToWallet(cardParams,$nameInput);
+    });
 }
 
 //code for dragging (from LearnJavascript)

@@ -6,6 +6,10 @@ function CardCreationForm($nameInput,$dateInput,$balInput,$pinInput) {
     newcard._expirationDate = $dateInput[0].value.split('.');
     newcard.setBalance(parseInt($balInput[0].value));
     newcard.setPin($pinInput[0].value.split('').map(Number));
+    insertToWallet(newcard,$nameInput);
+}
+
+function insertToWallet (newcard,$nameInput) {
     var holderName = $('<p>')
         .addClass("holder-name")
         .append(newcard._holderName);
