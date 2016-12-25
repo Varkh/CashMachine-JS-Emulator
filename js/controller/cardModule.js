@@ -34,6 +34,7 @@ function CardModule() {
         if(card) {
             var event = document.createEvent('CustomEvent');
             event.initCustomEvent('card-ejected',false,false,card);
+            document.body.dispatchEvent(event);
             card=null;
             console.log(event)
         }
