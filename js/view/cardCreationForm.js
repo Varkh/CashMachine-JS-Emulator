@@ -5,7 +5,7 @@ function CardCreationForm($nameInput,$dateInput,$balInput,$pinInput) {
     newcard._cardNumber = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     newcard._expirationDate = $dateInput[0].value.split('.');
     newcard.setBalance(parseInt($balInput[0].value));
-    newcard.setPin($pinInput[0].value.split(''));
+    newcard.setPin($pinInput[0].value.split('').map(Number));
     var holderName = $('<p>')
         .addClass("holder-name")
         .append(newcard._holderName);
